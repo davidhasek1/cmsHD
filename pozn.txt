@@ -1,0 +1,2 @@
+formulař odešle data do administratorske části a tam si přečtu zprávu
+    - a z adminu budu schopen i posílat zprávy pomocí NODEMAILERu
