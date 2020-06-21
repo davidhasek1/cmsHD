@@ -1,6 +1,6 @@
 
 exports.getLoginPage = (req,res,next) => {
-    res.render('adminLogin', {
+    res.render('admin/adminLogin', {
         pageTitle: 'Admin Login'
     });
 };  

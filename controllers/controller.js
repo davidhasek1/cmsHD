@@ -1,4 +1,4 @@
-
+const Form = require('../models/form');
 
 exports.getHomePage = (req,res,next) => {
     res.render('home', {
@@ -24,6 +24,11 @@ exports.getContactPage = (req,res,next) => {
     });
 };
 
-exports.postContacts = (req,res,next) => {
-    res.redirect('/');
+exports.postContacts = (req, res ,next) => {
+    const name = req.body.fullname;
+    const email = req.body.email;
+    const message = req.body.message;
+    const data = new Form(name,email,message);
+    console.log(data);
+    res.redirect('/contacts');
 }
