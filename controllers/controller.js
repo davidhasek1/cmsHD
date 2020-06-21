@@ -28,7 +28,12 @@ exports.postContacts = (req, res ,next) => {
     const name = req.body.fullname;
     const email = req.body.email;
     const message = req.body.message;
-    const data = new Form(name,email,message);
-    console.log(data);
-    res.redirect('/contacts');
+    const data = new Form(name,email,message); 
+    data.save()
+    .then(() =>{
+        console.log('New MSG created');
+        res.redirect('/admin');
+    })
+    .catch(err => console.log(err));
+    
 }

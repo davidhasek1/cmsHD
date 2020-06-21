@@ -1,5 +1,4 @@
-
-
+const getDb = require('../helpers/database').getDb;
 
 module.exports = class FormData {
     constructor(name,email,msg){
@@ -8,5 +7,10 @@ module.exports = class FormData {
         this.msg = msg;
     }
 
-    
+    save() {
+        const db = getDb();
+        return db.collection('messages').insertOne(this)
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+    }
 }

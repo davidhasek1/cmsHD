@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const mongoConnect = require('./helpers/database').mongoConnect;
 
 const routers = require('./routes/router');
 const adminRouters = require('./routes/adminRoutes');
@@ -26,4 +27,7 @@ app.use((req,res,next) => {
     });
 });
 
-app.listen(5000);
+mongoConnect(()=> {
+    app.listen(5000);
+});
+
