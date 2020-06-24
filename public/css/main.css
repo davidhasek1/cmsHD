@@ -2,3 +2,7 @@
     display: grid;
     margin: 0 100px;
 }
+.services-item {
+    list-style-type: none;
+    text-transform: uppercase;
+}

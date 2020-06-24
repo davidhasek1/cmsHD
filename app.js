@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoConnect = require('./helpers/database').mongoConnect;
 
 const routers = require('./routes/router');
+const errCtrl = require('./controllers/errorCtrl');
 const adminRouters = require('./routes/adminRoutes');
 
 app.set('view engine', 'ejs');
@@ -21,11 +22,7 @@ app.use('/admin', adminRouters );
 app.use(routers);
 
 
-app.use((req,res,next) => {
-    res.render('error', {
-        pageTitle: '404: Page not found'
-    });
-});
+app.use(errCtrl.getError);
 
 mongoConnect(()=> {
     app.listen(5000);
