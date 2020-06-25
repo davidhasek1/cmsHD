@@ -1,16 +1,25 @@
 <%- include('./layouts/head.ejs') -%>
 
-<h1>Contact</h1>
+<header class="header">
+    <div class="logo-box">
+        <img src="../img/logo.jpg" alt="logo" class="logo">
+    </div>
 
-<form id="form" action="/contacts" method="POST">
-    <label for="name">Jmeno a příjmení</label>
-        <input type="text" name="fullname" id="">
-    <label for="mail">Email</label>
-        <input type="email" name="email" id="">
-    <label for="message">Zpráva</label>
-        <textarea name="message" id="" cols="30" rows="10"></textarea>
-    <button type="submit">Odeslat</button>
-</form>
+    <div class="text-box">
+
+        <form id="form" action="/contacts" method="POST">
+            <label for="name">Jmeno a příjmení</label>
+            <input type="text" name="fullname" id="">
+            <label for="mail">Email</label>
+            <input type="email" name="email" id="">
+            <label for="message">Zpráva</label>
+            <textarea name="message" id="" cols="30" rows="10"></textarea>
+            <button type="submit" class="btn btn-white btn-animated" >Odeslat</button>
+        </form>
+    </div>
+</header>
+
+
 
 <%- include('./layouts/nav.ejs') -%>
 <%- include('./layouts/end.ejs') -%>

@@ -1,14 +1,26 @@
 <%- include('./layouts/head.ejs') -%>
 
-<h1>Services</h1>
+<header class="header">
+    <div class="logo-box">
+        <img src="../img/logo.jpg" alt="logo" class="logo">
+    </div>
+    <div class="text-box">
+
+        <ul class="services-list">
+            <li class="services-item fadeout">Zprostředkování služeb v dopravě</li>
+            <li class="services-item fadeout">Změny na registrech vozidel</li>
+            <li class="services-item fadeout">Dovoz aut ze zahraničí</li>
+            <li class="services-item fadeout">Zajištění STK a emisí</li>
+            <li class="services-item fadeout">Přestavba vozidel </li>
+          
+         
+        </ul>
+        <a href="/contacts" class="btn btn-white btn-animated">Contact Us</a>
+    </div>
+</header>
 
 
-<ul class="services-list">
-    <li class="services-item">Zprostředkování služeb v dopravě</li>
-    <li class="services-item">Změny na registrech vozidel</li>
-    <li class="services-item">Dovoz aut ze zahraničí</li>
-    <li class="services-item">Zajištění STK a emisí</li>
-</ul>
+
 
 <%- include('./layouts/nav.ejs') -%>
 <%- include('./layouts/end.ejs') -%>

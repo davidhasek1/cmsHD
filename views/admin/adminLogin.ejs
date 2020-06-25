@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Přihlašovací okno do admin sekce</h1>
+    <form action="/admin/" method="POST">
+        <label for="">Email</label>
+        <input type="email" name="email" id="">
+        <label for="">Heslo</label>
+        <input type="password" name="password" id="">
+        <button type="submit">Přihlásit</button>
+    </form>
 </body>
 </html>
