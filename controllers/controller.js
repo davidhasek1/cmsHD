@@ -32,7 +32,7 @@ exports.postContacts = (req, res ,next) => {
     data.save()
     .then(() =>{
         console.log('New MSG created');
-        res.redirect('/admin');
+        res.redirect('/admin/cms');
     })
     .catch(err => console.log(err));
     

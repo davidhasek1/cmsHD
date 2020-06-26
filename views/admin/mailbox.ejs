@@ -4,14 +4,24 @@
 
     <!-- klasickej for in iteruje přes jendotlivé dokumety v collection, proto [object Object] vypisovalo pole dokumetu a nepoložek v něm -->
     <!--  -->
+    <% if(msg.length > 0) { %>
     <ul>
         <% msg.forEach((m) => { %>
+          <a href="/admin/mailbox/<%= m._id %>"> 
             <li>
                 <%= m.name %>
                 <%= m.email %>
-                <%= m.msg %>
+
+                <form action="/admin/delete-message" method="POST">
+                    <input type="hidden" name="msgId" value="<%=m._id %>">
+                    <button type="submit">Delete</button>
+                </form>
             </li>
+        </a>
         <% }) %>
     </ul>
+    <% } else { %>
+        <h2>Žádné zprávy</h2>
+    <% } %>
 
 <%- include('./adminLayouts/Aend.ejs') %>

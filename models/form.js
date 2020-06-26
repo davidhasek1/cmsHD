@@ -1,3 +1,4 @@
+const mongodb = require('mongodb');
 const getDb = require('../helpers/database').getDb;
 
 module.exports = class FormData {
@@ -5,6 +6,16 @@ module.exports = class FormData {
 		this.name = name;
 		this.email = email;
 		this.msg = msg;
+		this.date = this.date();
+	}
+
+	date() {
+		const d = new Date(); // 26.3.2020
+		const dtfUK = new Intl.DateTimeFormat('UK', {
+			year: 'numeric', month: '2-digit', day: '2-digit',
+			hour: '2-digit', minute: '2-digit', second: '2-digit'
+		});
+		return dtfUK.format(d);
 	}
 
 	save() {
@@ -20,11 +31,34 @@ module.exports = class FormData {
 		const db = getDb();
 		return db
 			.collection('messages')
-			.find().toArray()
+			.find()
+			.toArray()
 			.then((messages) => {
 				console.log(messages);
 				return messages;
 			})
 			.catch((err) => console.log(err));
+	}
+
+	static findById(msgId) {
+		const db = getDb();
+		return db
+			.collection('messages')
+			.find({ _id: new mongodb.ObjectId(msgId) })
+			.next()
+			.then((message) => {
+				console.log(message);
+				return message;
+			})
+			.catch((err) => console.log(err));
+	}
+
+	static delete(msgId) {
+		const db = getDb();
+		return db.collection('messages').deleteOne({ _id: new mongodb.ObjectId(msgId) })
+		.then(result => {
+			console.log('Deleted');
+		})
+		.catch(err => console.log(err));
 	}
 };

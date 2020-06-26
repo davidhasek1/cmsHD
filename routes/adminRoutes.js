@@ -8,4 +8,8 @@ router.get('/cms', adminController.getCMSPage);
 
 router.get('/mailbox', adminController.getMailBoxPage);
 
+router.get('/mailbox/:msgId', adminController.getMessagePage);
+
+router.post('/delete-message', adminController.deleteMsgPost);
+
 module.exports = router;

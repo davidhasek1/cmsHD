@@ -20,6 +20,10 @@ body {
 	padding: 30px;
 }
 
+textarea {
+	font-family: sans-serif;
+}
+
 .header {
 	height: 95vh;
 	background-image: linear-gradient(to right bottom, hsla(212, 15%, 22%, 0.800), hsla(205, 16%, 27%, 0.800)),
@@ -158,8 +162,8 @@ body {
 /***********************************/
 
 .services-list {
-    padding: 15px 40px;
-    max-width: 100%;
+	padding: 15px 40px;
+	max-width: 100%;
 }
 .services-item {
 	list-style-type: none;

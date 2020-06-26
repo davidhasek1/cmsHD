@@ -6,9 +6,9 @@ exports.getLoginPage = (req, res, next) => {
 };
 
 exports.getCMSPage = (req, res, next) => {
-    res.render('admin/cms', {
-        pageTitle: 'CMS'
-    })
+	res.render('admin/cms', {
+		pageTitle: 'CMS'
+	});
 };
 
 exports.getMailBoxPage = (req, res, next) => {
@@ -20,4 +20,27 @@ exports.getMailBoxPage = (req, res, next) => {
 			});
 		})
 		.catch((err) => console.log(err));
+};
+
+exports.getMessagePage = (req, res, next) => {
+	const ID = req.params.msgId;
+	Msg.findById(ID)
+		.then((message) => {
+			res.render('admin/selectedMsg', {
+				msg: message,
+				pageTitle: message.name
+			});
+		})
+		.catch((err) => console.log(err));
+};
+
+exports.deleteMsgPost = (req, res, next) => {
+	const ID = req.body.msgId;
+	Msg.delete(ID)
+		.then(() => {
+			//není potřeba prametr - nepotřebuješ žadná data, když je mažeš
+			res.redirect('/admin/mailbox');
+		})
+		.catch((err) => console.log(err));
+	//Msg.delete(id).then catch
 };
