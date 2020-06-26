@@ -1,2 +1,7 @@
 formulař odešle data do administratorske části a tam si přečtu zprávu
     - a z adminu budu schopen i posílat zprávy pomocí NODEMAILERu
+
+
+
+    vytvoříš formulař s post metodou
+    vytvořis modal sendingemalis a zavolaš si to do ko§ntroleru

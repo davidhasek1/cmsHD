@@ -9,6 +9,7 @@
         <% msg.forEach((m) => { %>
           <a href="/admin/mailbox/<%= m._id %>"> 
             <li>
+                <%= m.date %>
                 <%= m.name %>
                 <%= m.email %>
 

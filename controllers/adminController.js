@@ -1,4 +1,7 @@
 const Msg = require('../models/form');
+const MailTo = require('../models/sendEmail');
+
+
 exports.getLoginPage = (req, res, next) => {
 	res.render('admin/adminLogin', {
 		pageTitle: 'Admin Login'
@@ -44,3 +47,16 @@ exports.deleteMsgPost = (req, res, next) => {
 		.catch((err) => console.log(err));
 	//Msg.delete(id).then catch
 };
+
+exports.postSendEmail = (req,res,next) => {
+	const mail = req.body.mail;
+	const subject = req.body.subject;
+	const text = req.body.mailtext;
+	const message = new MailTo(mail, subject, text);
+
+	console.log(message);
+	message.send();
+	console.log('controller OK');
+	res.redirect('/admin/mailbox');
+
+}

@@ -12,4 +12,6 @@ router.get('/mailbox/:msgId', adminController.getMessagePage);
 
 router.post('/delete-message', adminController.deleteMsgPost);
 
+router.post('/send-email', adminController.postSendEmail);
+
 module.exports = router;
