@@ -11,8 +11,8 @@ module.exports = class SendMail {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'hasek.david1@gmail.com',
-                pass: 'd4v1dh4s3k'
+                user: '',   //UŽIVATELOVI UDAJE K MAILU
+                pass: ''
             }
         });
         const mailOption = {
