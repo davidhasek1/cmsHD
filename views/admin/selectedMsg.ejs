@@ -1,4 +1,5 @@
 <%- include('./adminLayouts/Ahead.ejs') %>
+<%- include('./adminLayouts/gridStart.ejs') %>
 
 
 <article>
@@ -11,8 +12,8 @@
 </article>
 
 
-- udělat buuton po kliknutí poslat email dotyčné osobě
-<form action="/admin/send-email" method="POST">
+<h2>Poslat zprávu</h2>
+<form id="form" action="/admin/send-email" method="POST">
     <label for="">Předmět</label>
         <input type="hidden" name="mail" value="<%= msg.email %>">
         <input type="text" name="subject" id="">
@@ -23,6 +24,6 @@
 
 
 
-
+<%- include('./adminLayouts/gridEnd.ejs') %>
 
 <%- include('./adminLayouts/Aend.ejs') %>

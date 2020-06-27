@@ -17,7 +17,7 @@ module.exports = class SendMail {
         });
         const mailOption = {
             from: 'hasek.david1@gmail.com',
-            to: this.email,
+            to: this.email, //ABY panu Buckovi chodili zpravy i na mail, co se pošle z modalu z formuláře, tak poslat sem a poslat na mail?
             subject: this.subject,
             text: this.text
         }
