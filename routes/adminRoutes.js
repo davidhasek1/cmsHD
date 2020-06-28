@@ -14,4 +14,6 @@ router.post('/delete-message', adminController.deleteMsgPost);
 
 router.post('/send-email', adminController.postSendEmail);
 
+router.get('/help', adminController.getHelpPage);
+
 module.exports = router;

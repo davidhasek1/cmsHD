@@ -4,5 +4,8 @@
 
     vytvořit v CMS možnoost přidávání fotek...??
 
+    pořešit footer
+
+    implementace sekce návod
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!

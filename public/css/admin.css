@@ -42,15 +42,33 @@
 
 .item3 {
 	background-color: #eeeeee;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 .item4 {
 	background-color: #eeeeee;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 /* GRID end */
+
+.table {
+	background-color: rgb(214, 214, 214);
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	height: auto;
+	margin: 25px;
+}
+
+th {
+	padding: 25px;
+}
+
 a {
 	text-decoration: none;
 	color: #000000;
@@ -68,8 +86,6 @@ h4 {
 	position: relative;
 }
 
-
-
 .navbar {
 	display: flex;
 	flex-direction: column;
@@ -77,20 +93,19 @@ h4 {
 }
 .cms-nav-link {
 	padding: 10px 30px 10px;
-	margin: 5px 0 5px 0;
+	margin: 20px 0 5px 0;
 	text-align: center;
-	color:  #ffffff;
-	border: 1px solid #ffffff;;
+	color: #ffffff;
+	border: 1px solid #ffffff;
 }
 .cms-nav-link:hover {
 	color: #000000;
-	border: 1px solid #000000;
+	background-color: #ffffff;
 }
 
 body {
 	font-family: 'Lato', sans-serif;
 }
-
 
 pre {
 	font-family: sans-serif;

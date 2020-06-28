@@ -1,29 +1,63 @@
 <%- include('./adminLayouts/Ahead.ejs') %>
 <%- include('./adminLayouts/gridStart.ejs') %>
+
     <h1>MailBox</h1>
 
     <!-- klasickej for in iteruje přes jendotlivé dokumety v collection, proto [object Object] vypisovalo pole dokumetu a nepoložek v něm -->
-    <!--  -->
-    <% if(msg.length > 0) { %>
-    <ul>
-        <% msg.forEach((m) => { %>
-          <a href="/admin/mailbox/<%= m._id %>"> 
-            <li>
-                <%= m.date %>
-                <%= m.name %>
-                <%= m.email %>
 
-                <form action="/admin/delete-message" method="POST">
-                    <input type="hidden" name="msgId" value="<%=m._id %>">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        </a>
+    <div class="table">
+        <% if(msg.length > 0) { %>
+        <% msg.forEach((m) => { %>
+        <table>
+            <thead>
+                <th>Datum</th>
+                <th>Jméno</th>
+                <th>Email</th>
+                <th>Akce</th>
+            </thead>
+
+            <tr>
+                <td><%=m.date%></td>
+                <td><%=m.name%></td>
+                <td><%=m.email%></td>
+                <td>
+                    <form action="/admin/delete-message" method="POST">
+                        <input type="hidden" name="msgId" value="<%=m._id %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="/admin/mailbox/<%= m._id %>">Show</a>
+                </td>
+            </tr>
+        
+        </table>
         <% }) %>
-    </ul>
-    <% } else { %>
+        
+       
+        
+        <% } else { %>
         <h2>Žádné zprávy</h2>
-    <% } %>
+        <% } %>
+
+    </div>
+
 
 <%- include('./adminLayouts/gridEnd.ejs') %>
 <%- include('./adminLayouts/Aend.ejs') %>
+
+
+
+
+<!-- <ul>
+    <% msg.forEach((m) => { %>
+    <a href="/admin/mailbox/<%= m._id %>">
+        <li>
+           
+
+            <form action="/admin/delete-message" method="POST">
+                <input type="hidden" name="msgId" value="<%=m._id %>">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </a>
+    <% }) %>
+</ul> -->

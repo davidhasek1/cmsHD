@@ -14,6 +14,12 @@ exports.getCMSPage = (req, res, next) => {
 	});
 };
 
+exports.getHelpPage = (req, res, next) => {
+	res.render('admin/help', {
+		pageTitle: 'Guide'
+	});
+}
+
 exports.getMailBoxPage = (req, res, next) => {
 	Msg.fetchAll()
 		.then((messages) => {
@@ -60,3 +66,5 @@ exports.postSendEmail = (req,res,next) => {
 	res.redirect('/admin/mailbox');
 
 }
+
+
