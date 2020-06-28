@@ -50,7 +50,7 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	overflow-x: auto;
+	overflow-x: hidden;
 	overflow-y: hidden;
 }
 
@@ -91,17 +91,52 @@ h4 {
 	flex-direction: column;
 	padding: 15px 10% 5px 10%;
 }
+
+
+
+
+span {
+    float: left;
+    width: 20px;
+	height: 20px;
+	margin-right: 15px;
+}
+svg {
+	position: relative;
+	justify-content: left;
+}
+svg path {
+	fill: #ffffff;
+}
+
+
 .cms-nav-link {
-	padding: 10px 30px 10px;
+	padding: 10px 15px 10px;
 	margin: 20px 0 5px 0;
 	text-align: center;
 	color: #ffffff;
 	border: 1px solid #ffffff;
 }
-.cms-nav-link:hover {
+.cms-nav-link:hover svg path , .cms-nav-link:hover{
 	color: #000000;
-	background-color: #ffffff;
+	background-color: #ffffff;	/* toto funguje hover jak svg tak link */
+	fill: #000000;
 }
+.cms-nav-link-help, .svg-help .path-help {
+	padding: 10px 15px 10px;
+	margin: 20px 0 5px 0;
+	text-align: center;
+	color: #26baee;
+	fill: #26baee;
+	border: 1px solid #26baee;
+}
+.cms-nav-link-help:hover svg path, .cms-nav-link-help:hover {
+	color: #ffffff;
+	background-color: #26baee;
+	fill: #ffffff;
+}
+
+
 
 body {
 	font-family: 'Lato', sans-serif;

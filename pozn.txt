@@ -8,4 +8,6 @@
 
     implementace sekce návod
 
+    do CMS dát odkaz na stranky - aby se dostal z cms do webu
+
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
