@@ -151,6 +151,7 @@ svg path {
 	text-align: center;
 	color: #ffffff;
 	border: 1px solid #ffffff;
+	border-radius: 3px;
 }
 .cms-nav-link:hover svg path,
 .cms-nav-link:hover {
@@ -166,6 +167,7 @@ svg path {
 	color: #26baee;
 	fill: #26baee;
 	border: 1px solid #26baee;
+	border-radius: 3px;
 }
 .cms-nav-link-help:hover svg path,
 .cms-nav-link-help:hover {
@@ -216,16 +218,19 @@ h4 {
 	position: relative;
 }
 .logout {
-	padding: 0 60px 0 60px;
+	padding: 10px 0 10px 0;
+	margin-right: 35px;
 	right: 0;
 	position: absolute;
 }
 
 .logout-link {
 	color: #ffffff;
-	padding: 10px 15px 10px;
+	padding: 8px 15px 8px;
+
 	text-align: center;
 	border: 1px solid #ffffff;
+	border-radius: 3px;
 }
 .logout-link:hover {
 	color: #ff0000;
@@ -234,6 +239,7 @@ h4 {
 
 pre {
 	font-family: sans-serif;
+	padding-top: 5px;
 }
 
 #form {
@@ -246,10 +252,40 @@ pre {
 	background-color: #eeeeee;
 	overflow-x: auto;
 	overflow-y: hidden;
-	height: auto;		/* POUŽÍT VŠUDE - TOTO HEJBE KONTENT V DIVU */
+	height: 70%; 		/* POUŽÍT VŠUDE - TOTO HEJBE KONTENT V DIVU */
+	width: auto;
 	margin: 25px;
 	padding: 20px;
 	border: none;
+	display: flex;
 }
 
+.div-table-help {
+	float: left;
+}
+.table-help {
+	border: 1px solid rgb(197, 196, 196);
+}
+.table-help-td-link {
+	padding: 15px 80px 15px 80px;
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
+.table-help-td-link:hover {
+	padding: 15px 80px 15px 80px;
+	color: #26baee;
+}
+
+.help-content {
+	/* word-wrap: break-word; */
+	margin-left: 25px;
+}
+.help-footer {
+	text-align: center;
+}
+.help-footer-link {
+	color: #26baee;
+}

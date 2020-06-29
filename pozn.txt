@@ -5,9 +5,8 @@
 
     
 
-    implementace sekce návod
+  
 
-    dodělat tabulku se zprávami
 
     
 
@@ -16,4 +15,6 @@
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
-    pořešit footer
+    pořešit footer - ted ho tam raději nemam :D
+
+    UDELAT MENU TAK, ŽE KDYŽ JE MALA OBRAZOVKA TAK SE POSADÍ DOLŮ

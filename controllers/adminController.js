@@ -20,6 +20,28 @@ exports.getHelpPage = (req, res, next) => {
 	});
 }
 
+exports.getHelpDelete = (req,res,next) => {
+	res.render('admin/help/howdelete', {
+		pageTitle: 'Guide'
+	});
+}
+
+exports.getHelpSend = (req,res,next) => {
+	res.render('admin/help/howsend', {
+		pageTitle: 'Guide'
+	})
+}
+exports.getHelpAdd = (req,res,next) => {
+	res.render('admin/help/howadd', {
+		pageTitle: 'Guide'
+	})
+}
+exports.getHelpShow = (rew,res,next) => {
+	res.render('admin/help/howshow', {
+		pageTitle: 'Guide'
+	})
+}
+
 exports.getMailBoxPage = (req, res, next) => {
 	Msg.fetchAll()
 		.then((messages) => {
