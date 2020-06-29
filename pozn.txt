@@ -1,13 +1,19 @@
 
-    vytvoříš formulař s post metodou
-    vytvořis modal sendingemalis a zavolaš si to do ko§ntroleru
+    Dostavaní zpráv na mail:
+     - stejně jako posílaní. když nekdo udela submit formu, tak
+     zpravu poslat na mail ?????
 
-    vytvořit v CMS možnoost přidávání fotek...??
-
-    pořešit footer
+    
 
     implementace sekce návod
 
-    do CMS dát odkaz na stranky - aby se dostal z cms do webu
+    dodělat tabulku se zprávami
+
+    
+
+
+    vytvořit v CMS možnoost přidávání fotek...??
+____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
+    pořešit footer

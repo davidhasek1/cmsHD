@@ -2,18 +2,18 @@
 <%- include('./adminLayouts/gridStart.ejs') %>
 
 
-<article>
-    <h1><%= msg.name %></h1>
-    <h4><%= msg.date %></h4>
+<article class="msg-content">
+    <h1 class="content-heading-h1"><%= msg.name %></h1>
+    <h4 class="content-description"><%= msg.date %></h4>
 
-    <h3>Text zprávy</h3>
-        <pre><%=msg.msg %></pre>
+    <h3 class="content-description" >Text zprávy</h3>
+        <pre class="msg-text"><%=msg.msg %></pre>
 
 </article>
 
 
-<h2>Poslat zprávu</h2>
-<form id="form" action="/admin/send-email" method="POST">
+<h2 class="content-heading-h1">Odpovědět</h2>
+<form class="reply-form" id="form" action="/admin/send-email" method="POST">
     <label for="">Předmět</label>
         <input type="hidden" name="mail" value="<%= msg.email %>">
         <input type="text" name="subject" id="">
