@@ -1,12 +1,18 @@
 
 
-    Vytunit formuláře jak v CMS tak na homepage
 
+    Příhášení do CMS 
+        - vytvořit collectiobn Users  - NodeJS kurz pokračovat 
+        - Authentication
+        - design Loginu
+        
    
 
 
-    vytvořit v CMS možnoost přidávání fotek...??
 
+    vytvořit v CMS možnoost přidávání fotek...??
+    
+    Vytunit formuláře jak v CMS tak na homepage
 
 
 ____________________

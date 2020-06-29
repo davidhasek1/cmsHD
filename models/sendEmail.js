@@ -48,8 +48,8 @@ const sendToMe = class MailFromForm {
 			}
 		});
 		const mailOption = {
-			from: 'hasek.david1@gmail.com',
-			to: 'hasek.david1@gmail.com', //ABY panu Buckovi chodili zpravy i na mail, co se pošle z modalu z formuláře, tak poslat sem a poslat na mail?
+			from: 'hasek.david1@gmail.com', //posláno od sebe
+			to: 'hasek.david1@gmail.com', // pro sebe
 			subject: `Message from ${this.name}, ${this.email}`,
 			text: this.msg
 		};

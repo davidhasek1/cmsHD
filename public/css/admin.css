@@ -157,6 +157,7 @@ svg path {
 	border: 1px solid #ffffff;
 	border-radius: 3px;
 }
+
 .cms-nav-link:hover svg path,
 .cms-nav-link:hover {
 	color: #000000;
@@ -255,7 +256,7 @@ pre {
 .help-space {
 	background-color: #eeeeee;
 	overflow-x: auto;
-	overflow-y: hidden;
+	overflow-y: auto;
 	height: 70%; /* POUŽÍT VŠUDE - TOTO HEJBE KONTENT V DIVU */
 	width: auto;
 	margin: 25px;
@@ -286,6 +287,8 @@ pre {
 .help-content {
 	/* word-wrap: break-word; */
 	margin-left: 25px;
+	min-width: 450px;
+	height: auto;
 }
 .help-footer {
 	text-align: center;
