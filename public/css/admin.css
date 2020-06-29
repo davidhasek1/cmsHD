@@ -49,9 +49,6 @@ body {
 	overflow-y: auto;
 }
 
-.logo {
-	/* text-transform: uppercase; */
-}
 .logo:hover {
 	color: #26baee;
 }

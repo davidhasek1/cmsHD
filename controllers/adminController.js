@@ -1,5 +1,5 @@
 const Msg = require('../models/form');
-const MailTo = require('../models/sendEmail');
+const MailTo = require('../models/sendEmail').cmsSendMsg;
 
 
 exports.getLoginPage = (req, res, next) => {

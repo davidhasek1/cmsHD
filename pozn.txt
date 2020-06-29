@@ -1,12 +1,4 @@
 
-    Dostavaní zpráv na mail:
-     - stejně jako posílaní. když nekdo udela submit formu, tak
-     zpravu poslat na mail ?????
-
-    
-
-  
-
 
     Vytunit formuláře jak v CMS tak na homepage
 
@@ -16,7 +8,7 @@
     vytvořit v CMS možnoost přidávání fotek...??
 
 
-    
+
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
