@@ -49,6 +49,13 @@ body {
 	overflow-y: auto;
 }
 
+.logo {
+	/* text-transform: uppercase; */
+}
+.logo:hover {
+	color: #26baee;
+}
+
 /* Mailbox table */
 .table {
 	background-color: #eeeeee;
@@ -252,7 +259,7 @@ pre {
 	background-color: #eeeeee;
 	overflow-x: auto;
 	overflow-y: hidden;
-	height: 70%; 		/* POUŽÍT VŠUDE - TOTO HEJBE KONTENT V DIVU */
+	height: 70%; /* POUŽÍT VŠUDE - TOTO HEJBE KONTENT V DIVU */
 	width: auto;
 	margin: 25px;
 	padding: 20px;

@@ -8,10 +8,15 @@
   
 
 
-    
+    Vytunit formuláře jak v CMS tak na homepage
+
+   
 
 
     vytvořit v CMS možnoost přidávání fotek...??
+
+
+    
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
