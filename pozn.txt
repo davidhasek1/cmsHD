@@ -21,3 +21,11 @@ ____________________
     pořešit footer - ted ho tam raději nemam :D
 
     UDELAT MENU TAK, ŽE KDYŽ JE MALA OBRAZOVKA TAK SE POSADÍ DOLŮ
+
+
+
+
+
+    Vytvořit users collectiobn, v compassu vytvořit usera
+        - vytvoř si modal a v něm fukce save a findbyid, construktor bude obsahovat přihlašívací udaje email a pass
+        - pak to spojit se session

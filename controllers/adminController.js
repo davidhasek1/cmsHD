@@ -2,43 +2,43 @@ const Msg = require('../models/form');
 const MailTo = require('../models/sendEmail').cmsSendMsg;
 
 
-exports.getLoginPage = (req, res, next) => {
-	res.render('admin/adminLogin', {
-		pageTitle: 'Admin Login'
-	});
-};
-
 exports.getCMSPage = (req, res, next) => {
 	res.render('admin/cms', {
-		pageTitle: 'CMS'
+		pageTitle: 'CMS',
+		isAuthenticated: req.session.user	//pro každý get router defunuju authentication session. To kontroluje, zda je uživatel přihlášen a muže vypisovat obsah
 	});
 };
 
 exports.getHelpPage = (req, res, next) => {
 	res.render('admin/help', {
-		pageTitle: 'Guide'
+		pageTitle: 'Guide',
+		isAuthenticated: req.session.user
 	});
 }
 
 exports.getHelpDelete = (req,res,next) => {
 	res.render('admin/help/howdelete', {
-		pageTitle: 'Guide'
+		pageTitle: 'Guide',
+		isAuthenticated: req.session.user
 	});
 }
 
 exports.getHelpSend = (req,res,next) => {
 	res.render('admin/help/howsend', {
-		pageTitle: 'Guide'
+		pageTitle: 'Guide',
+		isAuthenticated: req.session.user
 	})
 }
 exports.getHelpAdd = (req,res,next) => {
 	res.render('admin/help/howadd', {
-		pageTitle: 'Guide'
+		pageTitle: 'Guide',
+		isAuthenticated: req.session.user
 	})
 }
 exports.getHelpShow = (rew,res,next) => {
 	res.render('admin/help/howshow', {
-		pageTitle: 'Guide'
+		pageTitle: 'Guide',
+		isAuthenticated: req.session.user
 	})
 }
 
@@ -47,7 +47,8 @@ exports.getMailBoxPage = (req, res, next) => {
 		.then((messages) => {
 			res.render('admin/mailbox', {
 				msg: messages,
-				pageTitle: 'Mailbox'
+				pageTitle: 'Mailbox',
+				isAuthenticated: req.session.user
 			});
 		})
 		.catch((err) => console.log(err));
@@ -59,7 +60,8 @@ exports.getMessagePage = (req, res, next) => {
 		.then((message) => {
 			res.render('admin/selectedMsg', {
 				msg: message,
-				pageTitle: message.name
+				pageTitle: message.name,
+				isAuthenticated: req.session.user
 			});
 		})
 		.catch((err) => console.log(err));
