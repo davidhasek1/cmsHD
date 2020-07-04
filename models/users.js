@@ -8,7 +8,7 @@ module.exports = class User {
         this.password = password;
     }
 
-    save() {
+    save() {    //save použiju v registraci
         const db = getDb();
         return db.collection('users').insertOne(this)
         .then((result) => {
@@ -21,7 +21,7 @@ module.exports = class User {
     static findById(id) {
         const db = getDb();
         return db.collection('users').find({_id: mongoDb.ObjectId(id) }).next().then(user => {
-            console.log(`User found ${user}`);
+            console.log(`User found`);
             return user;
         })
         .catch(err => {

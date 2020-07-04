@@ -17,10 +17,16 @@ exports.postLogin = (req,res,next) => {
     User.findById('5efe0a13026ed0a4022d55d1')
     .then((user) => {
         req.session.isLoggedIn = true;
-        req.session.user = user; //nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+        req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
         res.redirect('/admin/cms');
     }).catch((err) => {
         console.log(err);
     });
-   
 }
+
+exports.postLogout = (req,res,next) => {
+    req.session.destroy((err) => {  //destroy session při aktualní aktivní session
+        console.log(err);
+        res.redirect('/')   // přesměrování na homepage
+    })
+};

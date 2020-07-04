@@ -7,7 +7,7 @@ exports.getCMSPage = (req, res, next) => {
 		pageTitle: 'CMS',
 		isAuthenticated: req.session.user	//pro každý get router defunuju authentication session. To kontroluje, zda je uživatel přihlášen a muže vypisovat obsah
 	});
-};
+};		//pokud  req.session.user je prázdný - nepřiřadil se user v modalu auth.js, tak je hodnota implicitně FALSE, pokud je user nalezen hodnota je TRUE
 
 exports.getHelpPage = (req, res, next) => {
 	res.render('admin/help', {
