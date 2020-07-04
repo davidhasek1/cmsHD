@@ -2,17 +2,18 @@
 
 
     Příhášení do CMS 
-        - vytvořit collectiobn Users  - NodeJS kurz pokračovat 
+        - vytvořit collectiobn Users  - NodeJS kurz pokračovat DONE
         - Authentication
         - design Loginu
         
    
 
-
+    - CMS menu - přidat položku uživatelé
+    - CMS menu - udělat view pro Add content
 
     vytvořit v CMS možnoost přidávání fotek...??
     
-    Vytunit formuláře jak v CMS tak na homepage
+    Vytunit formuláře jak v CMS users, mailing, tak na homepage
 
 
 ____________________

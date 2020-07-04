@@ -1,0 +1,16 @@
+<%- include('./adminLayouts/Ahead.ejs') %>
+<%- include('./adminLayouts/gridStart.ejs') %>
+
+
+<% if(isAuthenticated) { %>
+<form action="/admin/edit_user" method="POST">
+    <label for="email">Email</label>
+        <input type="text" value="<%=user.email%>">
+    <label for="password">Password</label>
+        <input type="text" value="<%=user.password%>">  <!-- //předelat na password -->
+
+</form>
+<% } %>
+
+<%- include('./adminLayouts/gridEnd.ejs') %>
+<%- include('./adminLayouts/Aend.ejs') %>

@@ -19,5 +19,10 @@ router.get('/help/how-send', adminController.getHelpSend);
 router.get('/help/how-add', adminController.getHelpAdd);
 router.get('/help/how-show', adminController.getHelpShow);
 
+router.get('/add-content', adminController.getAddContentPage);
+
+router.get('/users', adminController.getUsersPage);
+router.get('/users/:userId', adminController.getUserPage);
+router.post('/users/delete-user', adminController.postDeleteUser);
 
 module.exports = router;

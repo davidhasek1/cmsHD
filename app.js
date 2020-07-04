@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoConnect = require('./helpers/database').mongoConnect;
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const User = require('./models/users');
 
 const MONGO_URI = require('./helpers/database').uri;
 
@@ -30,6 +31,21 @@ app.use(
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// když už session uživatele existuje tak, jen najdu session id uživatele a vezmu si pouze data o něm - použiju  req.user = user data ze session už mam... když req.session user id existuje, tak se do then parametru uloží data teto session a ty čistý data si uložím do ní a nasledně do req.user = user
+// tím že jde o session muddleware "obecený" tak je dostupný všude. Pokud req.session.user existuje našel jsem id, tak pro něho ukladsam data do req.user a ty pak používám v admin controlleru, např. pro isAuthenticated -> a tedy mohu vypsat obsah CMS
+app.use((req,res,next) => {
+    if(!req.session.user) {
+       return next();
+    }
+    User.findById(req.session.user._id)
+        .then((user) => {
+            req.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+            next();
+        }).catch((err) => {
+            console.log(err);
+        });
+});
 
 
 app.use('/admin', adminRouters );

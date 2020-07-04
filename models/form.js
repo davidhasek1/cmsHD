@@ -57,7 +57,7 @@ module.exports = class FormData {
 		const db = getDb();
 		return db.collection('messages').deleteOne({ _id: new mongodb.ObjectId(msgId) })
 		.then(result => {
-			console.log('Deleted');
+			console.log('MSG Deleted');
 		})
 		.catch(err => console.log(err));
 	}

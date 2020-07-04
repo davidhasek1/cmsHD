@@ -111,21 +111,27 @@ tr:nth-child(even) {
 	margin: -2em;
 }
 .table-btn-e {
-	background-color: green;
+	background-color: #26baee;
 	padding: 10px;
 	border-radius: 5px;
 	cursor: pointer;
 	border: none;
 }
+
+.table-btn-edit {
+	background-color: #26baee;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	border: none;
+}
+
 .table-btn {
 	background-color: red;
 	padding: 10px;
 	border-radius: 5px;
 }
-.svg-tbl-btn .path-tbl-btn {
-	vertical-align: middle;
-	fill: black;
-}
+
 
 /* Navigation bar */
 
