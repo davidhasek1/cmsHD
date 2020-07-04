@@ -1,5 +1,8 @@
 <%- include('../help-layout/helpStart.ejs') %>
 
+
+<% if(isAuthenticated) { %>
+
 <h1>Send</h1>
 
 <p>
@@ -15,5 +18,9 @@
     architecto provident? Quo illo voluptatibus ad cum totam asperiores omnis exercitationem, repellat enim maiores.
 
 </p>
+
+<% } %>
+
+
 
 <%- include('../help-layout/helpEnd.ejs') %>

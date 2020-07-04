@@ -35,7 +35,7 @@ exports.getHelpAdd = (req,res,next) => {
 		isAuthenticated: req.session.user
 	})
 }
-exports.getHelpShow = (rew,res,next) => {
+exports.getHelpShow = (req,res,next) => {
 	res.render('admin/help/howshow', {
 		pageTitle: 'Guide',
 		isAuthenticated: req.session.user
