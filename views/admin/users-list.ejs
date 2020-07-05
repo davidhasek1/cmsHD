@@ -2,9 +2,24 @@
 <%- include('./adminLayouts/gridStart.ejs') %>
 
 <% if(isAuthenticated) { %>
-<h1 class="content-heading-h1">Users</h1>
+
+<div class="users-list-heading">
+    <h1 class="content-heading-h1">Users</h1>
+  
+</div>
+
+
 
 <div class="table">
+    <span class="add-btn-span">
+    
+        <a class="add-link" href="/admin/users/add-user">
+            <svg class="add-btn-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path class="add-btn-path" d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z" />
+            </svg>
+        </a>
+    
+    </span>
     <% if(userList.length > 0) { %>
     <table class="fixed">
         <thead>

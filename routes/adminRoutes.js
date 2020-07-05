@@ -13,16 +13,18 @@ router.post('/send-email', adminController.postSendEmail);
 
 //router ADD content
 
-router.get('/help', adminController.getHelpPage);
-router.get('/help/how-delete', adminController.getHelpDelete);
-router.get('/help/how-send', adminController.getHelpSend);
-router.get('/help/how-add', adminController.getHelpAdd);
 router.get('/help/how-show', adminController.getHelpShow);
+router.get('/help/how-add', adminController.getHelpAdd);
+router.get('/help/how-send', adminController.getHelpSend);
+router.get('/help/how-delete', adminController.getHelpDelete);
+router.get('/help', adminController.getHelpPage);
 
 router.get('/add-content', adminController.getAddContentPage);
 
-router.get('/users', adminController.getUsersPage);
+router.get('/users/add-user', adminController.getAddUserPage);
+router.post('/users/add-user', adminController.postAddUser);
 router.get('/users/:userId', adminController.getUserPage);
 router.post('/users/delete-user', adminController.postDeleteUser);
+router.get('/users', adminController.getUsersPage);
 
 module.exports = router;

@@ -7,6 +7,10 @@ module.exports = class User {
 		this.password = password;
 	}
 
+	checkNewUser() {
+		
+	}
+
 	save() {
 		//save použiju v registraci
 		const db = getDb();

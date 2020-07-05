@@ -9,5 +9,6 @@ router.post('/admin', authController.postLogin);
 
 router.post('/logout', authController.postLogout);
 
+//tady bude post route odeslaní registrace
 
 module.exports = router;

@@ -2,18 +2,19 @@
 
 
     Příhášení do CMS 
-        - vytvořit collectiobn Users  - NodeJS kurz pokračovat DONE
         - Authentication
-        - design Loginu
         
-   
+    - CMS menu - upravení uživatelů heslo nový objekt a uložit pod stejnym id updateone
+    
+        - v seznamu uživatelu ADD user button
+            - udělat formulář v edit view
+    - CMS menu - udělat view pro Add content - zase tabulku a add button - stejný princip
 
-    - CMS menu - přidat položku uživatelé
-    - CMS menu - udělat view pro Add content
+
 
     vytvořit v CMS možnoost přidávání fotek...??
     
-    Vytunit formuláře jak v CMS users, mailing, tak na homepage
+    Vytunit formuláře jak v CMS users, mailing, tak na homepage, - design Loginu
 
 
 ____________________

@@ -137,4 +137,20 @@ exports.postDeleteUser = (req,res,next) => {
 	})
 }
 
+exports.getAddUserPage = (req,res,next) => {
+	res.render('admin/add-user', {
+		pageTitle: 'Add new user',
+		isAuthenticated: req.user
+	});
+}
+
+exports.postAddUser = (req,res,next) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	const confirm = req.body.confirm;
+	
+	if(password === confirm) {
+		
+	}
+}
 
