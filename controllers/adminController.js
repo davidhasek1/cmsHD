@@ -1,6 +1,7 @@
 const Msg = require('../models/form');
 const MailTo = require('../models/sendEmail').cmsSendMsg;
 const Users = require('../models/users');
+const User = require('../models/users');
 
 
 exports.getCMSPage = (req, res, next) => {
@@ -149,8 +150,24 @@ exports.postAddUser = (req,res,next) => {
 	const password = req.body.password;
 	const confirm = req.body.confirm;
 	
-	if(password === confirm) {
-		
-	}
+		const newUser = new Users(email, password);
+		newUser.checkExistingUser()
+		.then((userDoc) => {
+			if(userDoc){	//není undefined
+				console.log('Users already exists');
+				return res.redirect('/'); //pokud user existuje jdu na homepage
+			}
+			newUser.save()	//jinak ulož noveho usera
+			.then(() => {
+				res.redirect('/admin');
+			})
+			.catch((err) => {
+				console.log('Save error');
+			});				
+		})
+		.catch(err => {
+			console.log('checkExistingUser error');
+		})
+	
 }
 

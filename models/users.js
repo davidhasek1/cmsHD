@@ -7,18 +7,26 @@ module.exports = class User {
 		this.password = password;
 	}
 
-	checkNewUser() {
-		
+	checkExistingUser() {
+		const db = getDb();
+		return db.collection('users').findOne({email: this.email})
+		.then((document) => {	// user nebo undefined
+			console.log('DB find OK');
+			return document;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 	}
 
 	save() {
-		//save použiju v registraci
+		//save použiju v add usser
 		const db = getDb();
 		return db
 			.collection('users')
 			.insertOne(this)
 			.then((result) => {
-				console.log(`User saved: ${result}`);
+				console.log(`User saved`);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -32,7 +40,7 @@ module.exports = class User {
 			.find({ _id: mongoDb.ObjectId(id) })
 			.next()
 			.then((user) => {
-				console.log(`User found`);
+				console.log(`User found: looged in`);
 				return user;
 			})
 			.catch((err) => {

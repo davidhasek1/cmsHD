@@ -12,8 +12,8 @@ exports.getLoginPage = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-	//přihlášení do systému
-	User.findById('5efe0a13026ed0a4022d55d1')
+	//dva parametry email heslo - pokud se shoduje obojí s databazí pust mě
+	User.findById('5f0259bfe9e7790512323d0f')
 		.then((user) => {
 			req.session.isLoggedIn = true;
             req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
