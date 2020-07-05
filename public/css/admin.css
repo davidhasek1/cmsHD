@@ -227,6 +227,11 @@ h4 {
 	padding: 0 60px 0 60px;
 	position: relative;
 }
+.logout-btn {
+	all: unset;
+	cursor: pointer;
+	padding: 8px 15px 8px;
+}
 .logout {
 	padding: 10px 0 10px 0;
 	margin-right: 35px;
@@ -236,7 +241,7 @@ h4 {
 
 .logout-link {
 	color: #ffffff;
-	padding: 8px 15px 8px;
+	
 
 	text-align: center;
 	border: 1px solid #ffffff;

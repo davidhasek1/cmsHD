@@ -3,16 +3,15 @@
 
     Příhášení do CMS 
         - Authentication
-        
+Users
     - CMS menu - upravení uživatelů heslo nový objekt a uložit pod stejnym id updateone
-    
-        - v seznamu uživatelu ADD user button
-            - udělat formulář v edit view
+
+Fotky
     - CMS menu - udělat view pro Add content - zase tabulku a add button - stejný princip
 
 
 
-    vytvořit v CMS možnoost přidávání fotek...??
+    
     
     Vytunit formuláře jak v CMS users, mailing, tak na homepage, - design Loginu
 

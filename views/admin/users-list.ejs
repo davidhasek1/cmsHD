@@ -24,7 +24,7 @@
     <table class="fixed">
         <thead>
             <th>Email</th>
-            <th>Password</th>
+            <!-- <th>Password</th> -->
             <th colspan="2">Akce</th>
         </thead>
         <% userList.forEach((user) => { %>
@@ -32,7 +32,7 @@
 
         <tr>
             <td><%=user.email%></td>
-            <td><%=user.password%></td>
+            <!-- <td><%=user.password%></td> -->
             <td class="td-fixed">
                 <button class="table-btn-edit">
                     <a class="link-td" href="/admin/users/<%= user._id %>">
