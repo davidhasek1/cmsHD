@@ -57,6 +57,6 @@ app.use(authRouter);
 app.use(errCtrl.getError);
 
 mongoConnect(()=> {
-    app.listen(5000);
+    app.listen(4000);
 });
 

@@ -3,6 +3,8 @@ const MailTo = require('../models/sendEmail').cmsSendMsg;
 const Users = require('../models/users');
 const User = require('../models/users');
 
+const bcrypt = require('bcryptjs');
+
 
 exports.getCMSPage = (req, res, next) => {
 	res.render('admin/cms', {
@@ -150,23 +152,28 @@ exports.postAddUser = (req,res,next) => {
 	const password = req.body.password;
 	const confirm = req.body.confirm;
 	
-		const newUser = new Users(email, password);
-		newUser.checkExistingUser()
+		const checkUserEmail = new Users(email);	//nový objekt jen mail - chranim heslo - nejde použit Users...?
+		checkUserEmail.checkExistingUser()
 		.then((userDoc) => {
 			if(userDoc){	//není undefined
-				console.log('Users already exists');
+				console.log('User already exists');
 				return res.redirect('/'); //pokud user existuje jdu na homepage
 			}
-			newUser.save()	//jinak ulož noveho usera
-			.then(() => {
-				res.redirect('/admin');
+			bcrypt.hash(password, 12)
+			.then((hashedPassword) => {
+				const newUser = new Users(email, hashedPassword);
+				newUser.save()
+				.then(() => {
+					console.log('New user saved');
+					return res.redirect('/admin');
+				})
+				.catch((err) => console.log(err));
 			})
-			.catch((err) => {
-				console.log('Save error');
-			});				
+				
 		})
+		
 		.catch(err => {
-			console.log('checkExistingUser error');
+			console.log('check Email error');
 		})
 	
 }
