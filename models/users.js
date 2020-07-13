@@ -7,7 +7,17 @@ module.exports = class User {
 		this.password = password;
 	}
 
-	checkExistingUser() {
+	static findByEmail(email) {
+		const db = getDb();
+		return db.collection('users').findOne({email: email})
+		.then(userFound => {
+			console.log('User found');
+			return userFound;
+		})
+		.catch(err => console.log(err));
+	}
+
+	checkExistingUser() {	// možný problem že funkce neni static - kdyby byla - tak pravdepodobne normálne pošlu parametr email a Users objekt v adminctrl bude fungovat 
 		const db = getDb();
 		return db.collection('users').findOne({email: this.email})
 		.then((document) => {	// user nebo undefined

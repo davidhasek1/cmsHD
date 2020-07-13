@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/users');
 
 exports.getLoginPage = (req, res, next) => {
@@ -12,15 +13,26 @@ exports.getLoginPage = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-	//dva parametry email heslo - pokud se shoduje obojí s databazí pust mě
-	User.findById('5f0259bfe9e7790512323d0f')
+	const email = req.body.email;
+	const password = req.body.password;
+	User.findByEmail(email)
 		.then((user) => {
-			req.session.isLoggedIn = true;
-            req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
-            req.session.save((err) => { // nejprve se uloží session a pak se s jistotou vyrenderuje full page bez prodlení
-                console.log(err);
-                res.redirect('/admin/cms');
-            })
+			if(!user){
+				return res.redirect('/admin');
+			}
+			bcrypt.compare(password, user.password)	//bcrypt vrací bolean
+			.then(doMatch => {
+				if(doMatch){
+					req.session.isLoggedIn = true;
+					req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+					return req.session.save((err) => { // nejprve se uloží session a pak se s jistotou vyrenderuje full page bez prodlení
+						console.log(err);
+						res.redirect('/admin/cms');
+					})
+				}
+				res.redirect('/admin');
+            })	
+			.catch(err => console.log(err));
 			
 		})
 		.catch((err) => {
@@ -28,10 +40,11 @@ exports.postLogin = (req, res, next) => {
 		});
 };
 
+
 exports.postLogout = (req, res, next) => {
 	req.session.destroy((err) => {
 		//destroy session při aktualní aktivní session
 		console.log(err);
-		res.redirect('/'); // přesměrování na homepage
+		res.redirect('/admin'); // přesměrování na admin login
 	});
 };
