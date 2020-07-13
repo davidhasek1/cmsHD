@@ -40,6 +40,7 @@
                 </td>
                 <td class="td-fixed">
                     <form action="/admin/delete-message" method="POST">
+                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                         <input type="hidden" name="msgId" value="<%=m._id %>">
                         <button class="table-btn" type="submit">
                             <svg class="svg-tbl-btn" xmlns="http://www.w3.org/2000/svg" width="22" height="20"

@@ -8,41 +8,35 @@ const bcrypt = require('bcryptjs');
 
 exports.getCMSPage = (req, res, next) => {
 	res.render('admin/cms', {
-		pageTitle: 'CMS',
-		isAuthenticated: req.user	//pro každý get router defunuju authentication session. To kontroluje, zda je uživatel přihlášen a muže vypisovat obsah
+		pageTitle: 'cmsHD'
 	});
 };		//pokud  req.user je prázdný - nepřiřadil se user v modalu auth.js, tak je hodnota implicitně FALSE, pokud je user nalezen hodnota je TRUE
 
 exports.getHelpPage = (req, res, next) => {
 	res.render('admin/help', {
-		pageTitle: 'Guide',
-		isAuthenticated: req.user
+		pageTitle: 'Guide'
 	});
 }
 
 exports.getHelpDelete = (req,res,next) => {
 	res.render('admin/help/howdelete', {
-		pageTitle: 'Guide',
-		isAuthenticated: req.user
+		pageTitle: 'Guide'
 	});
 }
 
 exports.getHelpSend = (req,res,next) => {
 	res.render('admin/help/howsend', {
-		pageTitle: 'Guide',
-		isAuthenticated: req.user
+		pageTitle: 'Guide'
 	})
 }
 exports.getHelpAdd = (req,res,next) => {
 	res.render('admin/help/howadd', {
-		pageTitle: 'Guide',
-		isAuthenticated: req.user
+		pageTitle: 'Guide'
 	})
 }
 exports.getHelpShow = (req,res,next) => {
 	res.render('admin/help/howshow', {
-		pageTitle: 'Guide',
-		isAuthenticated: req.user
+		pageTitle: 'Guide'
 	})
 }
 
@@ -51,8 +45,7 @@ exports.getMailBoxPage = (req, res, next) => {
 		.then((messages) => {
 			res.render('admin/mailbox', {
 				msg: messages,
-				pageTitle: 'Mailbox',
-				isAuthenticated: req.user
+				pageTitle: 'Mailbox'
 			});
 		})
 		.catch((err) => console.log(err));
@@ -64,8 +57,7 @@ exports.getMessagePage = (req, res, next) => {
 		.then((message) => {
 			res.render('admin/selectedMsg', {
 				msg: message,
-				pageTitle: message.name,
-				isAuthenticated: req.user
+				pageTitle: message.name
 			});
 		})
 		.catch((err) => console.log(err));
@@ -98,8 +90,7 @@ exports.postSendEmail = (req,res,next) => {
 exports.getAddContentPage = (req,res,next) => {
 	//v budoucnu budu fetchovat datat z databaze obrazky
 	res.render('admin/add-content', {
-		pageTitle: 'Add content',
-		isAuthenticated: req.user
+		pageTitle: 'Add content'
 	});
 }
 
@@ -108,8 +99,7 @@ exports.getUsersPage = (req,res,next) => {
 	.then(users => {
 		res.render('admin/users-list', {
 			pageTitle: 'Users',
-			userList: users,
-			isAuthenticated: req.user
+			userList: users
 		});
 	})
 	.catch(err => {
@@ -122,8 +112,7 @@ exports.getUserPage = (req,res,next) => {
 	.then(user => {	//data o vybranem userovi
 		res.render('admin/user-edit', {
 			pageTitle: 'User Edit',
-			user: user,
-			isAuthenticated: req.user
+			user: user
 		});
 	})
 	.catch(err => console.log(err));
@@ -142,8 +131,7 @@ exports.postDeleteUser = (req,res,next) => {
 
 exports.getAddUserPage = (req,res,next) => {
 	res.render('admin/add-user', {
-		pageTitle: 'Add new user',
-		isAuthenticated: req.user
+		pageTitle: 'Add new user'
 	});
 }
 

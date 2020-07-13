@@ -8,6 +8,7 @@
             </div>
             <div class="logout">
                 <form class="logout-link" action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                     <button class="logout-btn" type="submit">Logout</button>
                 </form>
             </div>

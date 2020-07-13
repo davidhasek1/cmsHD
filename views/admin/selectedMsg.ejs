@@ -14,6 +14,7 @@
     
     <h2 class="content-heading-h1">Odpovědět</h2>
     <form class="reply-form" id="form" action="/admin/send-email" method="POST">
+        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
         <label for="">Předmět</label>
         <input type="hidden" name="mail" value="<%= msg.email %>">
         <input type="text" name="subject" id="">
