@@ -1,30 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
+const isAuth = require('../isAuth/isAuth');
 
-router.get('/cms', adminController.getCMSPage);
+router. get('/cms', isAuth, adminController.getCMSPage);
 
-router.get('/mailbox', adminController.getMailBoxPage);
-router.get('/mailbox/:msgId', adminController.getMessagePage);
+router.get('/mailbox', isAuth, adminController.getMailBoxPage);
+router.get('/mailbox/:msgId', isAuth, adminController.getMessagePage);
 
-router.post('/delete-message', adminController.deleteMsgPost);
+router.post('/delete-message',isAuth, adminController.deleteMsgPost);
 
-router.post('/send-email', adminController.postSendEmail);
+router.post('/send-email',isAuth, adminController.postSendEmail);
 
 //router ADD content
 
-router.get('/help/how-show', adminController.getHelpShow);
-router.get('/help/how-add', adminController.getHelpAdd);
-router.get('/help/how-send', adminController.getHelpSend);
-router.get('/help/how-delete', adminController.getHelpDelete);
-router.get('/help', adminController.getHelpPage);
+router.get('/help/how-show',isAuth, adminController.getHelpShow);
+router.get('/help/how-add',isAuth, adminController.getHelpAdd);
+router.get('/help/how-send',isAuth, adminController.getHelpSend);
+router.get('/help/how-delete',isAuth, adminController.getHelpDelete);
+router.get('/help',isAuth, adminController.getHelpPage);
 
-router.get('/add-content', adminController.getAddContentPage);
+router.get('/add-content',isAuth, adminController.getAddContentPage);
 
-router.get('/users/add-user', adminController.getAddUserPage);
-router.post('/users/add-user', adminController.postAddUser);
-router.get('/users/:userId', adminController.getUserPage);
-router.post('/users/delete-user', adminController.postDeleteUser);
-router.get('/users', adminController.getUsersPage);
+router.get('/users/add-user',isAuth, adminController.getAddUserPage);
+router.post('/users/add-user',isAuth, adminController.postAddUser);
+router.get('/users/:userId',isAuth, adminController.getUserPage);
+router.post('/users/delete-user',isAuth, adminController.postDeleteUser);
+router.get('/users',isAuth, adminController.getUsersPage);
 
 module.exports = router;
