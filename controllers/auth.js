@@ -8,7 +8,8 @@ exports.getLoginPage = (req, res, next) => {
 	res.render('auth/adminLogin', {
 		pageTitle: 'Admin Login',
 		isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
-		errorMessage: req.flash('error')
+		errorMessage: req.flash('error'),
+		errorPassword: req.flash('errorPassword')
 	});
 	console.log(req.session.isLoggedIn);
 };
@@ -19,7 +20,7 @@ exports.postLogin = (req, res, next) => {
 	User.findByEmail(email)
 		.then((user) => {
 			if(!user){
-				req.flash('error', 'Wrong email or password');
+				req.flash('error', 'Invalid email or password');
 				return res.redirect('/admin');
 			}
 			bcrypt.compare(password, user.password)	//bcrypt vrací bolean
@@ -32,6 +33,7 @@ exports.postLogin = (req, res, next) => {
 						res.redirect('/admin/cms');
 					})
 				}
+				req.flash('errorPassword', 'Invalid email or password' );
 				res.redirect('/admin');
             })	
 			.catch(err => console.log(err));

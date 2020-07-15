@@ -3,7 +3,10 @@
 <div class="login-page">
     <div>
         <% if(errorMessage) { %>
-        <p class="login-error"><%= errorMessage %></p>
+            <p class="login-error"><%= errorMessage %></p>
+        <% } %>
+        <% if(errorPassword) { %>
+            <p class="login-error"><%= errorPassword %></p>
         <% } %>
     </div>
     <form action="/admin" method="POST">
