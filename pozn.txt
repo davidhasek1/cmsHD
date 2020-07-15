@@ -1,17 +1,16 @@
 
-
-
-    Příhášení do CMS 
-        - Authentication
 Users
     - CMS menu - upravení uživatelů heslo nový objekt a uložit pod stejnym id updateone
+
+    edit user - pouze pole pro vložení nového hesla a confirm hesla - pak provést update
+        - zjistit jak bcrypt vrátí decrypt heslo??? optional
 
 Fotky
     - CMS menu - udělat view pro Add content - zase tabulku a add button - stejný princip
 
 
 
-    
+    Dodělat user edit formulář + funkcionality
     
     Vytunit formuláře jak v CMS users, mailing, tak na homepage, - design Loginu
 
@@ -22,11 +21,3 @@ ____________________
     pořešit footer - ted ho tam raději nemam :D
 
     UDELAT MENU TAK, ŽE KDYŽ JE MALA OBRAZOVKA TAK SE POSADÍ DOLŮ
-
-
-
-
-
-    Vytvořit users collectiobn, v compassu vytvořit usera
-        - vytvoř si modal a v něm fukce save a findbyid, construktor bude obsahovat přihlašívací udaje email a pass
-        - pak to spojit se session

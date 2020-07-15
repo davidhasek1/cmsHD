@@ -182,3 +182,7 @@ textarea {
 	display: grid;
 	margin: 0 100px;
 }
+
+.login-error {
+	color: black;
+}

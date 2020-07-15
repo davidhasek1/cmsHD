@@ -193,20 +193,33 @@ a {
 /* Massage content */
 
 .msg-content {
-	margin: 10px 0 10px 20px;
+	margin: 10px 0 10px 0;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 .content-description {
 	color: #000000;
-	padding: 10px 0 10px 10px;
+	padding: 10px 0 10px 65px;
 }
 
 .msg-text {
-	padding: 10px 50px;
-}
+	font-family: sans-serif;
+	padding: 20px;
+	background-color: #ffffff;
+	min-width: 50vw;
+	margin: 0 65px 10px 65px;
+	white-space: pre-wrap;
+	border-radius: 5px;
 
-.reply-form {
-	padding-bottom: 100px;
 }
+/* 	background-color: #eeeeee;
+	overflow-x: auto;
+	overflow-y: hidden;
+	height: auto;
+	margin: 25px;
+	padding: 20px;
+	border: none; */
+
 
 /* Header and headings */
 
@@ -253,14 +266,9 @@ h4 {
 }
 
 pre {
-	font-family: sans-serif;
-	padding-top: 5px;
+	
 }
 
-#form {
-	display: grid;
-	margin: 0 300px;
-}
 
 /* HELP sekce */
 .help-space {
@@ -335,3 +343,47 @@ pre {
 	padding: 0.75em;
 	margin: -0.75em;
 }
+
+
+#form {
+	display: grid;
+	margin: 0 3rem;
+	
+	
+}
+.form-div {
+	
+	min-width: 50vw;
+	margin: 20px 20px 20px 20px;
+	
+}
+input, textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #26baee;
+  border-radius: 5px;
+  outline: none;
+  
+}
+
+
+
+.adduser-btn {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: none;
+	background-color: #26baee;
+	border-radius: 5px;
+	cursor: pointer;
+	outline: none;
+	color:white;
+	text-transform: uppercase;
+}
+
+
+

@@ -7,7 +7,8 @@ exports.getLoginPage = (req, res, next) => {
 	console.log(req.session.isLoggedIn);
 	res.render('auth/adminLogin', {
 		pageTitle: 'Admin Login',
-		isAuthenticated: false //vyrenderuje se login page tudíš authentication je false jako výchozí stav
+		isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
+		errorMessage: req.flash('error')
 	});
 	console.log(req.session.isLoggedIn);
 };
@@ -18,6 +19,7 @@ exports.postLogin = (req, res, next) => {
 	User.findByEmail(email)
 		.then((user) => {
 			if(!user){
+				req.flash('error', 'Wrong email or password');
 				return res.redirect('/admin');
 			}
 			bcrypt.compare(password, user.password)	//bcrypt vrací bolean
