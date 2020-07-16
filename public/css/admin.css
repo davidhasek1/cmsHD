@@ -414,7 +414,7 @@ input, textarea {
 	border: 1px solid #14d314;
 	padding: 0.7rem;
 	border-radius: 5px;
-	background: #bbebbb;
+	background: #defdde;
 	color: #14d314;
 	text-align: center;
 	margin-bottom: 10px;
@@ -422,8 +422,17 @@ input, textarea {
 
 .login-message--error {
 	border-color: #ff0000;
-	background: rgb(255, 184, 184);
+	background: #ffb8b8;
 	color: red;
+}
+
+.login-resetpassword {
+	text-align: center;
+	padding-top: 25px;
+	
+}
+#resetPasswordlink:hover {
+	color: #ff0000 ;
 }
 
 

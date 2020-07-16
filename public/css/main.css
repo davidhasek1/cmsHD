@@ -186,3 +186,18 @@ textarea {
 .login-error {
 	color: black;
 }
+
+.status {
+	color: black;
+	
+}
+.error-page {
+	
+	text-align: center;
+	margin: auto;
+	padding-top: 10px;	/* upravit na menší hodnotu */
+	margin-top: 150px;
+	width: 450px;
+	height: 70vh;
+
+}
