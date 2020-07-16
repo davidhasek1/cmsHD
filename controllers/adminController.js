@@ -118,8 +118,6 @@ exports.getUserPage = (req,res,next) => {
 	.catch(err => console.log(err));
 }
 
-//post user page - data z formu poslat do databaze a updateovat
-
 exports.postDeleteUser = (req,res,next) => {
 	const userId = req.body.userId;
 	Users.delete(userId)

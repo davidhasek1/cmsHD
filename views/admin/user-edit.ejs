@@ -4,14 +4,16 @@
 
 <% if(isAuthenticated) { %>
 <h1 class="content-heading-h1">Edit user</h1>
-<form id="form" action="/admin/edit_user" method="POST">
-    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-    <label for="email">Email</label>
-        <input type="text" value="<%=user.email%>">
-    <label for="password">Password</label>
-        <input type="password" value="<%=user.password%>">  <!-- //předelat na password -->
-    <button class="adduser-btn" type="submit">Save</button>
-</form>
+<div class="form-div">
+    <form id="form" action="/admin/edit_user" method="POST">
+        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+        <label for="email">Email</label>
+            <input type="text" value="<%=user.email%>">
+        <label for="password">Password</label>
+            <input type="password" value="<%=user.password%>">  <!-- //předelat na password -->
+        <button class="adduser-btn" type="submit">Save</button>
+    </form>
+</div>
 <% } %>
 
 <%- include('./adminLayouts/gridEnd.ejs') %>

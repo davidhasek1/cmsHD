@@ -2,6 +2,8 @@
 Users
     - CMS menu - upravení uživatelů heslo nový objekt a uložit pod stejnym id updateone
 
+    CONFIRM password dodělat !!!
+
     edit user - pouze pole pro vložení nového hesla a confirm hesla - pak provést update
         - zjistit jak bcrypt vrátí decrypt heslo??? optional
 

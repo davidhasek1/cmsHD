@@ -16,6 +16,7 @@
     <div class="form-div">
         <form class="reply-form" id="form" action="/admin/send-email" method="POST">
             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            <input type="hidden" name="id" value="<%=msg._id%>">
             <label for="">Předmět</label>
             <input type="hidden" name="mail" value="<%= msg.email %>">
             <input type="text" name="subject" id="">

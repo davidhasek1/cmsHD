@@ -265,10 +265,6 @@ h4 {
 	border: 1px solid #ff0000;
 }
 
-pre {
-	
-}
-
 
 /* HELP sekce */
 .help-space {
@@ -353,14 +349,16 @@ pre {
 }
 .form-div {
 	
-	min-width: 50vw;
-	margin: 20px 20px 20px 20px;
+	margin: auto;
+	padding: 30px 0;	/* upravit na menší hodnotu */
+	/* margin-top: 150px; */
+	width: 60%;
 	
 }
 input, textarea {
+	margin: 8px 0;
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid #26baee;
@@ -369,10 +367,7 @@ input, textarea {
   
 }
 
-
-
 .adduser-btn {
-	width: 100%;
 	padding: 12px 20px;
 	margin: 8px 0;
 	box-sizing: border-box;
@@ -383,7 +378,48 @@ input, textarea {
 	outline: none;
 	color:white;
 	text-transform: uppercase;
+	margin: auto;
+	margin-top: 25px;
+	width: 5Opx;
+	
+	  
 }
 
+.login-logo {
+	text-align: center;
+	margin: 10px 20px;
+	color: #26baee;
+}
+
+.form-div-login {
+	
+	margin: auto;
+	padding-top: 10px;	/* upravit na menší hodnotu */
+	margin-top: 150px;
+	width: 450px;
+	
+	  
+}
+.login-btn {
+	margin: auto;
+	margin-top: 25px;
+  	width: 5Opx;
+}
+
+.login-message {
+	margin: auto;
+	width: 90%;
+	border: 1px solid #14d314;
+	padding: 0.7rem;
+	border-radius: 5px;
+	background: #bbebbb;
+	text-align: center;
+}
+
+.login-message--error {
+	border-color: #ff0000;
+	background: rgb(255, 184, 184);
+	color: red;
+}
 
 

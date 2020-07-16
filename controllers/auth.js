@@ -4,12 +4,14 @@ const User = require('../models/users');
 exports.getLoginPage = (req, res, next) => {
 	//const isLoogedIn = req.get('Cookie').split('SL_wptGlobTipTmp=undefined; ')[1].trim().split('=')[1];
 
+	let message = req.flash('error');
+	console.log(message);
+
 	console.log(req.session.isLoggedIn);
 	res.render('auth/adminLogin', {
 		pageTitle: 'Admin Login',
 		isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
-		errorMessage: req.flash('error'),
-		errorPassword: req.flash('errorPassword')
+		errorMessage: message[0]
 	});
 	console.log(req.session.isLoggedIn);
 };
@@ -33,7 +35,7 @@ exports.postLogin = (req, res, next) => {
 						res.redirect('/admin/cms');
 					})
 				}
-				req.flash('errorPassword', 'Invalid email or password' );
+				req.flash('error', 'Invalid email or password' );
 				res.redirect('/admin');
             })	
 			.catch(err => console.log(err));
