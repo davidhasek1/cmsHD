@@ -12,8 +12,12 @@ module.exports = class FormData {
 	date() {
 		const d = new Date(); // 26.3.2020
 		const dtfUK = new Intl.DateTimeFormat('UK', {
-			year: 'numeric', month: '2-digit', day: '2-digit',
-			hour: '2-digit', minute: '2-digit', second: '2-digit'
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit'
 		});
 		return dtfUK.format(d);
 	}
@@ -32,6 +36,7 @@ module.exports = class FormData {
 		return db
 			.collection('messages')
 			.find()
+			.sort({ date: -1 })
 			.toArray()
 			.then((messages) => {
 				console.log(messages);
@@ -55,10 +60,12 @@ module.exports = class FormData {
 
 	static delete(msgId) {
 		const db = getDb();
-		return db.collection('messages').deleteOne({ _id: new mongodb.ObjectId(msgId) })
-		.then(result => {
-			console.log('MSG Deleted');
-		})
-		.catch(err => console.log(err));
+		return db
+			.collection('messages')
+			.deleteOne({ _id: new mongodb.ObjectId(msgId) })
+			.then((result) => {
+				console.log('MSG Deleted');
+			})
+			.catch((err) => console.log(err));
 	}
 };

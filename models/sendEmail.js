@@ -7,16 +7,16 @@ const cmsSendMsg = class SendMail {
 		this.text = text;
 	}
 
-	static resetPassword(email,token) {
+	static resetPassword(email, token) {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
-				pass: 'd4v1dh4s3k'
+				user: '', //UŽIVATELOVI UDAJE K MAILU
+				pass: ''
 			}
 		});
 		const mailOption = {
-			from: 'hasek.david1@gmail.com',
+			from: '',
 			to: email,
 			subject: 'Reset Password',
 			html: `<p>Through link down below you reset your password</p><br>
@@ -29,19 +29,18 @@ const cmsSendMsg = class SendMail {
 				throw err;
 			}
 		});
-
 	}
 
 	send() {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
-				pass: 'd4v1dh4s3k'
+				user: '', //UŽIVATELOVI UDAJE K MAILU
+				pass: ''
 			}
 		});
 		const mailOption = {
-			from: 'hasek.david1@gmail.com',
+			from: '',
 			to: this.email,
 			subject: this.subject,
 			text: this.text
@@ -68,13 +67,13 @@ const sendToMe = class MailFromForm {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
-				pass: 'd4v1dh4s3k'
+				user: '', //UŽIVATELOVI UDAJE K MAILU
+				pass: ''
 			}
 		});
 		const mailOption = {
 			from: 'hasek.david1@gmail.com', //posláno od sebe
-			to: 'hasek.david1@gmail.com', // pro sebe
+			to: '', // pro sebe
 			subject: `Message from ${this.name}, ${this.email}`,
 			text: this.msg
 		};
@@ -92,7 +91,6 @@ const sendToMe = class MailFromForm {
 exports.cmsSendMsg = cmsSendMsg;
 exports.mailFromForm = sendToMe;
 
-
 /* 
 sendToMe() {
     //když jsme zadal svuj mail do formulaře, tak se poslalo do me schranky
@@ -102,7 +100,7 @@ sendToMe() {
         service: 'gmail',
         auth: {
             user: 'hasek.david1@gmail.com',   //UŽIVATELOVI UDAJE K MAILU
-            pass: 'd4v1dh4s3k'
+            pass: ''
         }
     });
     const mailOption = {
