@@ -408,12 +408,16 @@ input, textarea {
 
 .login-message {
 	margin: auto;
-	width: 90%;
+	padding: 30px 0;	/* upravit na menší hodnotu */
+	/* margin-top: 150px; */
+	width: 80%;
 	border: 1px solid #14d314;
 	padding: 0.7rem;
 	border-radius: 5px;
 	background: #bbebbb;
+	color: #14d314;
 	text-align: center;
+	margin-bottom: 10px;
 }
 
 .login-message--error {

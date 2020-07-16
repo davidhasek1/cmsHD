@@ -130,8 +130,13 @@ exports.postDeleteUser = (req,res,next) => {
 }
 
 exports.getAddUserPage = (req,res,next) => {
+	let error = req.flash('userExists');
+	let newUser = req.flash('savedUser');
+
 	res.render('admin/add-user', {
-		pageTitle: 'Add new user'
+		pageTitle: 'Add new user',
+		userExists: error[0],
+		newUserMsg: newUser[0]
 	});
 }
 
@@ -145,7 +150,8 @@ exports.postAddUser = (req,res,next) => {
 		.then((userDoc) => {
 			if(userDoc){	//není undefined
 				console.log('User already exists');
-				return res.redirect('/'); //pokud user existuje jdu na homepage
+				req.flash('userExists', 'User already exists');
+				return res.redirect('/admin/users/add-user'); 
 			}
 			bcrypt.hash(password, 12)
 			.then((hashedPassword) => {
@@ -153,7 +159,8 @@ exports.postAddUser = (req,res,next) => {
 				newUser.save()
 				.then(() => {
 					console.log('New user saved');
-					return res.redirect('/admin');
+					req.flash('savedUser', 'New user added!');
+					return res.redirect('/admin/users/add-user');
 				})
 				.catch((err) => console.log(err));
 			})

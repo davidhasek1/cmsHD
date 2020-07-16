@@ -11,7 +11,7 @@ exports.getLoginPage = (req, res, next) => {
 	res.render('auth/adminLogin', {
 		pageTitle: 'Admin Login',
 		isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
-		errorMessage: message[0]
+		errorMessage: message[0],
 	});
 	console.log(req.session.isLoggedIn);
 };
