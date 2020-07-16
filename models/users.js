@@ -5,6 +5,25 @@ module.exports = class User {
 	constructor(email, password) {
 		this.email = email;
 		this.password = password;
+		this.resetToken;
+		this.resetTokenExp;
+	}
+
+	static setReset(user, token) {
+		const db = getDb();
+		this.resetToken = token;
+		this.resetTokenExp = Date.now() + 3600000;
+
+		return db.collection('users').updateOne({email: user.email}, {$set: {
+			resetToken: this.resetToken,
+			resetTokenExp: this.resetTokenExp
+		}})
+		.then(tokenSet => {
+			console.log('reset token set!');
+		})
+		.catch(err => {
+			console.log(err);
+		});
 	}
 
 	static findByEmail(email) {

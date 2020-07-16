@@ -1,5 +1,8 @@
+const crypto = require('crypto');
+
 const bcrypt = require('bcryptjs');
 const User = require('../models/users');
+const Mail = require('../models/sendEmail').cmsSendMsg;
 
 exports.getLoginPage = (req, res, next) => {
 	//const isLoogedIn = req.get('Cookie').split('SL_wptGlobTipTmp=undefined; ')[1].trim().split('=')[1];
@@ -54,3 +57,46 @@ exports.postLogout = (req, res, next) => {
 		res.redirect('/admin'); // přesměrování na admin login
 	});
 };
+
+exports.getReset = (req,res,next) => {
+	let errorMsg = req.flash('error');
+	let resetPass = req.flash('passwordReset');
+	res.render('auth/reset', {
+		pageTitle: 'Reset Password',
+		errorMessage: errorMsg[0],
+		resetEmail: resetPass[0]
+	});
+}
+
+exports.postReset = (req,res,next) => {
+	const email = req.body.email;
+	crypto.randomBytes(32, (err, buffer) => {
+		if(err){
+			console.log(err);
+			return res.redirect('/reset');
+		}
+		const token = buffer.toString('hex');
+		User.findByEmail(email)
+		.then(user => {	//dokument usera se schodu v mailu
+			if(!user){	
+				req.flash('error', 'Email addres does not exists');
+				return res.redirect('/reset');
+			}
+			console.log(user);
+			return User.setReset(user,token)
+			.then(result => {
+				console.log('DB resetToken update ducument OK');
+				req.flash('passwordReset', 'Email sent!');
+				console.log(result);
+				
+				res.redirect('/reset');
+				Mail.resetPassword(email,token);
+		
+			})
+			.catch(err => {
+				console.log(err);
+			});
+		})
+		.catch(err => console.log(err))
+	})
+}

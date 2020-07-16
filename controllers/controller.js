@@ -32,13 +32,12 @@ exports.postContacts = (req, res, next) => {
 	const data = new Form(name, email, message);
 	const mail = new MailfromForm(name, email, message);
 
-	data
-		.save()
-		.then(() => {
-			console.log('New MSG created');
-			res.redirect('/admin/cms');
-		})
-        .catch((err) => console.log(err));
+	data.save()
+	.then(() => {
+		console.log('New MSG created');
+		res.redirect('/admin/cms');
+	})
+  	.catch((err) => console.log(err));
         
-   /*  mail.sendMailFromForm(); */
+    mail.sendMailFromForm();
 };

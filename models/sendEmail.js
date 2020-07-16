@@ -7,17 +7,42 @@ const cmsSendMsg = class SendMail {
 		this.text = text;
 	}
 
-	send() {
+	static resetPassword(email,token) {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: '', //UŽIVATELOVI UDAJE K MAILU
-				pass: ''
+				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
+				pass: 'd4v1dh4s3k'
 			}
 		});
 		const mailOption = {
 			from: 'hasek.david1@gmail.com',
-			to: this.email, //ABY panu Buckovi chodili zpravy i na mail, co se pošle z modalu z formuláře, tak poslat sem a poslat na mail?
+			to: email,
+			subject: 'Reset Password',
+			html: `<p>Through link down below you reset your password</p><br>
+			       <a href='http://localhost:4000/reset/${token}'>Reset</a>`
+		};
+		transporter.sendMail(mailOption, (err, info) => {
+			if (info) {
+				console.log('Reset password email successfully sent to ' + email);
+			} else {
+				throw err;
+			}
+		});
+
+	}
+
+	send() {
+		const transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
+				pass: 'd4v1dh4s3k'
+			}
+		});
+		const mailOption = {
+			from: 'hasek.david1@gmail.com',
+			to: this.email,
 			subject: this.subject,
 			text: this.text
 		};
@@ -43,8 +68,8 @@ const sendToMe = class MailFromForm {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: '', //UŽIVATELOVI UDAJE K MAILU
-				pass: ''
+				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
+				pass: 'd4v1dh4s3k'
 			}
 		});
 		const mailOption = {
@@ -66,6 +91,7 @@ const sendToMe = class MailFromForm {
 
 exports.cmsSendMsg = cmsSendMsg;
 exports.mailFromForm = sendToMe;
+
 
 /* 
 sendToMe() {

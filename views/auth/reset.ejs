@@ -1,0 +1,20 @@
+<%- include('../admin/adminLayouts/Ahead.ejs') %>
+
+<div class="form-div form-div-login">
+    <% if(errorMessage) { %>
+    <div class="login-message login-message--error"><%= errorMessage %></div>
+    <% } %>
+    <% if(resetEmail) { %>
+    <div class="login-message"><%= resetEmail %></div>
+    <% } %>
+    <h1 class="content-heading-h1 login-logo">cmsHD</h1>
+
+    <form id="form" action="/reset" method="POST">
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+        <label for="">Email</label>
+            <input type="email" name="email" id="">
+        <button class="adduser-btn login-btn" type="submit">Reset Password</button>
+    </form>
+</div>
+
+<%- include('../layouts/end.ejs') %>
