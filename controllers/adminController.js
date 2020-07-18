@@ -2,8 +2,8 @@ const Msg = require('../models/form');
 const MailTo = require('../models/sendEmail').cmsSendMsg;
 const Users = require('../models/users');
 const User = require('../models/users');
-
 const bcrypt = require('bcryptjs');
+const {validationResult} = require('express-validator');
 
 
 exports.getCMSPage = (req, res, next) => {
@@ -130,12 +130,12 @@ exports.postDeleteUser = (req,res,next) => {
 }
 
 exports.getAddUserPage = (req,res,next) => {
-	let error = req.flash('userExists');
+	let error = req.flash('error');
 	let newUser = req.flash('savedUser');
 
 	res.render('admin/add-user', {
 		pageTitle: 'Add new user',
-		userExists: error[0],
+		error: error[0],
 		newUserMsg: newUser[0]
 	});
 }
@@ -143,14 +143,24 @@ exports.getAddUserPage = (req,res,next) => {
 exports.postAddUser = (req,res,next) => {
 	const email = req.body.email;
 	const password = req.body.password;
-	const confirm = req.body.confirm;
-	
+	//const confirm = req.body.confirm;
+	const errors = validationResult(req);
+	let newUser = req.flash('savedUser');	//tady je to pouze definováno, aby tento render nehazel chybu
+
+	if(!errors.isEmpty()){
+		console.log(errors);
+		return res.status(422).render('admin/add-user', {
+		pageTitle: 'Add new user',
+		error: errors.array()[0].msg,
+		newUserMsg: newUser[0]
+		});
+	}
 		const checkUserEmail = new Users(email);	//nový objekt jen mail - chranim heslo - nejde použit Users...?
 		checkUserEmail.checkExistingUser()
 		.then((userDoc) => {
 			if(userDoc){	//není undefined
 				console.log('User already exists');
-				req.flash('userExists', 'User already exists');
+				req.flash('error', 'User already exists');
 				return res.redirect('/admin/users/add-user'); 
 			}
 			bcrypt.hash(password, 12)

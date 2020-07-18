@@ -1,8 +1,9 @@
 const crypto = require('crypto');
-
 const bcrypt = require('bcryptjs');
+
 const User = require('../models/users');
 const Mail = require('../models/sendEmail').cmsSendMsg;
+const {validationResult} = require('express-validator');
 
 exports.getLoginPage = (req, res, next) => {
 	//const isLoogedIn = req.get('Cookie').split('SL_wptGlobTipTmp=undefined; ')[1].trim().split('=')[1];
@@ -23,6 +24,18 @@ exports.getLoginPage = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
+	const errors = validationResult(req);
+	let pwChange = req.flash('passwordChanged');
+
+	if(!errors.isEmpty()){
+		console.log(errors);
+		return res.status(422).render('auth/adminLogin', {
+			pageTitle: 'Admin Login',
+			isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
+			errorMessage: errors.array()[0].msg,
+			password: pwChange[0] 
+		});
+	}
 	User.findByEmail(email)
 		.then((user) => {
 			if (!user) {

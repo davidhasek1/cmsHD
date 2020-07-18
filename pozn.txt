@@ -23,3 +23,9 @@ ____________________
     pořešit footer - ted ho tam raději nemam :D
 
     UDELAT MENU TAK, ŽE KDYŽ JE MALA OBRAZOVKA TAK SE POSADÍ DOLŮ
+
+
+add user ejs
+<!-- <% if(newUserMsg) { %>
+<div class="login-message "><%= newUserMsg %></div>
+<% } %> -->

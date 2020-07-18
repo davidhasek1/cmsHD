@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
 const isAuth = require('../isAuth/isAuth');
+const {check, body} = require('express-validator');
 
 router. get('/cms', isAuth, adminController.getCMSPage);
 
@@ -23,7 +24,20 @@ router.get('/help',isAuth, adminController.getHelpPage);
 router.get('/add-content',isAuth, adminController.getAddContentPage);
 
 router.get('/users/add-user',isAuth, adminController.getAddUserPage);
-router.post('/users/add-user',isAuth, adminController.postAddUser);
+
+router.post('/users/add-user',isAuth,
+[ 
+    check('email').isEmail().withMessage('Invalid email'),  //check kontroluje vše ..cookies,headers,body atd.
+    body('password', 'Enter minimum 6 characters').isLength({min:6}),    //body kontroluje pouze definovaný segment
+    body('confirm').custom((value, {req}) => {  //vrací true / false
+        if(value !== req.body.password) {
+            throw new Error('Password does not match');
+        }
+        return true;
+    })
+],
+adminController.postAddUser);
+
 router.get('/users/:userId',isAuth, adminController.getUserPage);
 router.post('/users/delete-user',isAuth, adminController.postDeleteUser);
 router.get('/users',isAuth, adminController.getUsersPage);
