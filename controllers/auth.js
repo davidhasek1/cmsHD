@@ -127,7 +127,8 @@ exports.getNewPassPage = (req, res, next) => {
 			res.render('auth/newpassword', {
 				pageTitle: 'Set new Password',
 				userID: foundUser._id.toString(),
-				passwordToken: token
+				passwordToken: token,
+				error: null
 			});
 		})
 		.catch((err) => {
@@ -138,6 +139,16 @@ exports.postNewPassword = (req, res, next) => {
 	const ID = req.body.userId;
 	const password = req.body.password;
 	const token = req.body.passwordToken;
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty()){
+		res.status(422).render('auth/newpassword', {
+				pageTitle: 'Set new Password',
+				userID: ID,
+				passwordToken: token,
+				error: errors.array()[0].msg
+			});
+	}
 
 	User.findById(ID)
 	.then((user) => {

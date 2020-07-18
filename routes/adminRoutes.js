@@ -27,11 +27,11 @@ router.get('/users/add-user',isAuth, adminController.getAddUserPage);
 
 router.post('/users/add-user',isAuth,
 [ 
-    check('email').isEmail().withMessage('Invalid email'),  //check kontroluje vše ..cookies,headers,body atd.
+    check('email').isEmail().withMessage('Invalid email'),  //check kontroluje vše ..cookies,headers,body, params atd.
     body('password', 'Enter minimum 6 characters').isLength({min:6}),    //body kontroluje pouze definovaný segment
     body('confirm').custom((value, {req}) => {  //vrací true / false
         if(value !== req.body.password) {
-            throw new Error('Password does not match');
+            throw new Error('Passwords have to match');
         }
         return true;
     })

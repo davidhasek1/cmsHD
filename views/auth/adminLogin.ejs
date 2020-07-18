@@ -4,9 +4,9 @@
     <% if(errorMessage) { %>
         <div class="login-message login-message--error"><%= errorMessage %></div>
     <% } %>
-   <!--  <% // if(password) { %>
-    <div class="login-message"><%= //password %></div>
-    <% //} %> -->
+    <%  if(password) { %>
+    <div class="login-message"><%= password %></div>
+    <% } %>
     <h1 class="content-heading-h1 login-logo">cmsHD</h1>
     <form id="form" action="/admin" method="POST" novalidate>
         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
