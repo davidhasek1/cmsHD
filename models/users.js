@@ -9,43 +9,88 @@ module.exports = class User {
 		this.resetTokenExp;
 	}
 
+	static updatePassword(user, token, password) {
+		const db = getDb();
+		return db
+			.collection('users')
+			.updateOne(
+				{ resetToken: token, resetTokenExp: { $gt: Date.now() }, _id: new mongoDb.ObjectId(user._id) },
+				{ $set: { password: password, resetToken: undefined, resetTokenExp: undefined } }
+			)
+			.then((result) => {
+				console.log(result);
+				console.log('DB MOdel password updated');
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	static findToken(token) {
+		const db = getDb();
+		return db
+			.collection('users')
+			.findOne({ resetToken: token, resetTokenExp: { $gt: Date.now() } })
+			.then((user) => {
+				console.log('findtokenModel');
+				console.log(user);
+				return user;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
 	static setReset(user, token) {
 		const db = getDb();
 		this.resetToken = token;
 		this.resetTokenExp = Date.now() + 3600000;
 
-		return db.collection('users').updateOne({email: user.email}, {$set: {
-			resetToken: this.resetToken,
-			resetTokenExp: this.resetTokenExp
-		}})
-		.then(tokenSet => {
-			console.log('reset token set!');
-		})
-		.catch(err => {
-			console.log(err);
-		});
+		return db
+			.collection('users')
+			.updateOne(
+				{ email: user.email },
+				{
+					$set: {
+						resetToken: this.resetToken,
+						resetTokenExp: this.resetTokenExp
+					}
+				}
+			)
+			.then((tokenSet) => {
+				console.log('reset token set!');
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}
 
 	static findByEmail(email) {
 		const db = getDb();
-		return db.collection('users').findOne({email: email})
-		.then(userFound => {
-			console.log('User found');
-			return userFound;
-		})
-		.catch(err => console.log(err));
+		return db
+			.collection('users')
+			.findOne({ email: email })
+			.then((userFound) => {
+				console.log('User found');
+				return userFound;
+			})
+			.catch((err) => console.log(err));
 	}
 
-	checkExistingUser() {	// možný problem že funkce neni static - kdyby byla - tak pravdepodobne normálne pošlu parametr email a Users objekt v adminctrl bude fungovat 
+	checkExistingUser() {
+		// možný problem že funkce neni static - kdyby byla - tak pravdepodobne normálne pošlu parametr email a Users objekt v adminctrl bude fungovat
 		const db = getDb();
-		return db.collection('users').findOne({email: this.email})
-		.then((document) => {	// user nebo undefined
-			console.log('DB find OK');
-			return document;
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+		return db
+			.collection('users')
+			.findOne({ email: this.email })
+			.then((document) => {
+				// user nebo undefined
+				console.log('DB find OK');
+				return document;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}
 
 	save() {
@@ -79,20 +124,25 @@ module.exports = class User {
 
 	static fetchAll() {
 		const db = getDb();
-        return db.collection('users').find().toArray()
-        .then(users => {
-            console.log(users);
-            return users;
-        })
-        .catch((err) => console.log(err));
-    }
-    
-    static delete(ID) {
-        const db = getDb();
-        return db.collection('users').deleteOne({_id: new mongoDb.ObjectId(ID)})
-        .then((user) => {
-            console.log('User deleted');
-        })
-        .catch(err => console.log(err));
-    }
+		return db
+			.collection('users')
+			.find()
+			.toArray()
+			.then((users) => {
+				console.log(users);
+				return users;
+			})
+			.catch((err) => console.log(err));
+	}
+
+	static delete(ID) {
+		const db = getDb();
+		return db
+			.collection('users')
+			.deleteOne({ _id: new mongoDb.ObjectId(ID) })
+			.then((user) => {
+				console.log('User deleted');
+			})
+			.catch((err) => console.log(err));
+	}
 };

@@ -11,8 +11,8 @@ const cmsSendMsg = class SendMail {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: '', //UŽIVATELOVI UDAJE K MAILU
-				pass: ''
+				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
+				pass: 'D4V1DH4S3K4109'
 			}
 		});
 		const mailOption = {
