@@ -5,7 +5,13 @@ const {check, body} = require('express-validator');
 
 router.get('/admin', authController.getLoginPage);
 
-router.post('/admin', check('email').isEmail().withMessage('Invalid Email') , authController.postLogin);
+router.post('/admin',
+[
+    check('email').isEmail().withMessage('Invalid Email'),
+    body('password', 'Invalid email or password').isLength({min:6})
+
+]
+ , authController.postLogin);
 
 router.post('/logout', authController.postLogout);
 

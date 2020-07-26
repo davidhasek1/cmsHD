@@ -26,7 +26,7 @@ textarea {
 
 .header {
 	height: 95vh;
-	background-image: linear-gradient(to right bottom, hsla(212, 15%, 22%, 0.800), hsla(205, 16%, 27%, 0.800)),
+	background-image: linear-gradient(to right bottom, rgba(48, 56, 65, 0.5), rgba(58, 71, 80, 0.5)),
 		url(../img/auto.jpg);
 	background-size: cover;
 	background-position: top;

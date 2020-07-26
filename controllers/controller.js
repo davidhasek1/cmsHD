@@ -2,11 +2,12 @@ const Form = require('../models/form');
 const MailfromForm = require('../models/sendEmail').mailFromForm;
 
 exports.getHomePage = (req, res, next) => {
-	res.render('home', {
+	res.render('index', {
 		pageTitle: 'Martin Bucek'
 	});
 };
 
+/* nefunkční momentálně */
 exports.getAboutPage = (req, res, next) => {
 	res.render('about', {
 		pageTitle: 'Martin Bucek'
