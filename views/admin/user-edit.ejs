@@ -5,12 +5,20 @@
 <% if(isAuthenticated) { %>
 <h1 class="content-heading-h1">Edit user</h1>
 <div class="form-div">
-    <form id="form" action="/admin/edit_user" method="POST">
+    <% if(err) { %>
+        <div class="login-message login-message--error"><%= err %></div>
+   <% } %>
+
+    <form id="form" action="/admin/users/edit-user" method="POST">
+
         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+        <input type="hidden" name="userId" value="<%=user._id%>">
         <label for="email">Email</label>
-            <input type="text" value="<%=user.email%>">
-        <label for="password">Password</label>
-            <input type="password" value="<%=user.password%>">  <!-- //předelat na password -->
+        <input type="email" name="email" id="" value="<%=user.email %>">
+        <label for="new_password">New password</label>
+            <input type="password" name="newpassword" id="">
+        <label for="confirm_password">Confirm Password</label>
+            <input type="password" name="confirmpassword" id="">
         <button class="adduser-btn" type="submit">Save</button>
     </form>
 </div>

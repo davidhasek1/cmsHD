@@ -9,6 +9,20 @@ module.exports = class User {
 		this.resetTokenExp;
 	}
 
+	static editUserPassword(user, newPassword) {
+		const db = getDb();
+		//Neprovádím kontrolu podle ID, protože kontrola proběhla již v admin controlleru, při hledání uživatele
+		return db
+			.collection('users')
+			.updateOne({ _id: new mongoDb.ObjectId(user._id) }, { $set: { password: newPassword } })
+			.then((result) => {
+				console.log('New password set');
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
 	static updatePassword(user, token, password) {
 		const db = getDb();
 		return db
