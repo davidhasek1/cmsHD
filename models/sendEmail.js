@@ -11,8 +11,8 @@ const cmsSendMsg = class SendMail {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
-				pass: 'D4V1DH4S3K4109'
+				user: '', //UŽIVATELOVI UDAJE K MAILU
+				pass: ''
 			}
 		});
 		const mailOption = {
@@ -35,8 +35,8 @@ const cmsSendMsg = class SendMail {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
-				pass: 'D4V1DH4S3K4109'
+				user: '', //UŽIVATELOVI UDAJE K MAILU
+				pass: ''
 			}
 		});
 		const mailOption = {
@@ -67,8 +67,8 @@ const sendToMe = class MailFromForm {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
-				pass: 'D4V1DH4S3K4109'
+				user: '', //UŽIVATELOVI UDAJE K MAILU
+				pass: ''
 			}
 		});
 		const mailOption = {
@@ -90,32 +90,3 @@ const sendToMe = class MailFromForm {
 
 exports.cmsSendMsg = cmsSendMsg;
 exports.mailFromForm = sendToMe;
-
-/* 
-sendToMe() {
-    //když jsme zadal svuj mail do formulaře, tak se poslalo do me schranky
-    // když z formulaře odešlu zpravu
-    // zprava z formu se pošle pod mojí mail adresou na muj mail
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'hasek.david1@gmail.com',   //UŽIVATELOVI UDAJE K MAILU
-            pass: ''
-        }
-    });
-    const mailOption = {
-        from: 'hasek.david1@gmail.com',
-        to: this.email, //ABY panu Buckovi chodili zpravy i na mail, co se pošle z modalu z formuláře, tak poslat sem a poslat na mail?
-        subject: this.subject,
-        text: this.text
-    }
-
-    transporter.sendMail(mailOption, (err, info) => {
-        if (info) {
-            console.log('Email SENT successfully to ' + this.email);
-        }
-        else {
-            throw err;
-        }
-    })
-} */
