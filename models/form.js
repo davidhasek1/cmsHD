@@ -27,7 +27,7 @@ module.exports = class FormData {
 		return db
 			.collection('messages')
 			.insertOne(this)
-			.then((result) => console.log(result))
+			.then((result) => console.log('New MSG saved'))
 			.catch((err) => console.log(err));
 	}
 

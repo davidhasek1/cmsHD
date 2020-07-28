@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+</head>
+<body>
+    <section class="contact-section" id="contact">
+              
+        <div class="form-container">
+            <div class="contact-heading">
+                <h1>Kontakt</h1>
+            </div>
+
+            <div class="form-wrapper">
+                     
+                <div class="form-div">
+                    <form class="form" action="/contact-form" method="POST">
+                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                        <label for="name">Jmeno a příjmení</label>
+                        <input type="text" name="fullname" id="">
+                        <label for="mail">Email</label>
+                        <input type="email" name="email" id="">
+                        <label for="message">Zpráva</label>
+                        <div class="textarea-con">
+                            <textarea name="message" id="" cols="30" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-white btn-animated">Odeslat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+</body>
+</html>

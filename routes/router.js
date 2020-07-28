@@ -12,4 +12,9 @@ router.post('/contacts', controller.postContacts); */
 
 router.get('/', controller.getHomePage);
 
+router.get('/contact-form', controller.getContactForm);
+
+router.post('/contact-form', controller.postContactForm)
+
+
 module.exports = router;

@@ -35,8 +35,8 @@ const cmsSendMsg = class SendMail {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: '', //UŽIVATELOVI UDAJE K MAILU
-				pass: ''
+				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
+				pass: 'D4V1DH4S3K4109'
 			}
 		});
 		const mailOption = {
@@ -67,13 +67,13 @@ const sendToMe = class MailFromForm {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
-				user: '', //UŽIVATELOVI UDAJE K MAILU
-				pass: ''
+				user: 'hasek.david1@gmail.com', //UŽIVATELOVI UDAJE K MAILU
+				pass: 'D4V1DH4S3K4109'
 			}
 		});
 		const mailOption = {
 			from: 'hasek.david1@gmail.com', //posláno od sebe
-			to: '', // pro sebe
+			to: 'hasek.david1@gmail.com', // pro sebe
 			subject: `Message from ${this.name}, ${this.email}`,
 			text: this.msg
 		};

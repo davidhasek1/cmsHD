@@ -8,25 +8,15 @@ exports.getHomePage = (req, res, next) => {
 };
 
 /* nefunkční momentálně */
-exports.getAboutPage = (req, res, next) => {
-	res.render('about', {
-		pageTitle: 'Martin Bucek'
+
+
+exports.getContactForm = (req, res, next) => {
+	res.render('contact-form', {
+		pageTitle: 'Kontaktní formulář'
 	});
 };
 
-exports.getServicesPage = (req, res, next) => {
-	res.render('services', {
-		pageTitle: 'Martin Bucek'
-	});
-};
-
-exports.getContactPage = (req, res, next) => {
-	res.render('contacts', {
-		pageTitle: 'Martin Bucek'
-	});
-};
-
-exports.postContacts = (req, res, next) => {
+exports.postContactForm = (req, res, next) => {
 	const name = req.body.fullname;
 	const email = req.body.email;
 	const message = req.body.message;
