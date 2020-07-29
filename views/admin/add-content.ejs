@@ -5,7 +5,60 @@
 
 <h1 class="content-heading-h1">Add content - obrázky</h1>
 
+<div class="table">
+    <span class="add-btn-span">
+    
+        <a class="add-link" href="/admin/add-content/add-form">
+            <svg class="add-btn-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path class="add-btn-path" d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z" />
+            </svg>
+        </a>
+    
+    </span>
+
+    <table class="fixed">
+        <thead>
+            <th>Datum</th>
+            <th>Název</th>
+            <th>Akce</th>
+        </thead>
+        
+
+
+        <tr>
+           <td>
+                12/12/2020
+           </td>
+           <td>
+                obrazek 22
+           </td>
+            <td class="td-fixed">
+                <form action="/admin/delete-message" method="POST">
+                    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                    
+                    <button class="table-btn" type="submit">
+                        <svg class="svg-tbl-btn" xmlns="http://www.w3.org/2000/svg" width="22" height="20"
+                            viewBox="0 0 24 24">
+                            <path class="path-tbl-btn"
+                                d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" />
+                        </svg>
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+       
+    </table>
+
+   
+   <!--  <h2>Žádné zprávy</h2> -->
+    
+
+</div>
+
 <% } %>
+
+
 
 <%- include('./adminLayouts/gridEnd.ejs') %>
 <%- include('./adminLayouts/Aend.ejs') %>

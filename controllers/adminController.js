@@ -91,6 +91,12 @@ exports.getAddContentPage = (req, res, next) => {
 	});
 };
 
+exports.getAddContentForm =(req,res,next) => {
+	res.render('admin/contentForm', {
+		pageTitle: 'Add new image'
+	})
+}
+
 exports.getUsersPage = (req, res, next) => {
 	const newPW = req.flash('changePW');
 	Users.fetchAll()

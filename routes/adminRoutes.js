@@ -9,7 +9,7 @@ router.get('/cms', isAuth, adminController.getCMSPage);
 router.get('/mailbox', isAuth, adminController.getMailBoxPage);
 router.get('/mailbox/:msgId', isAuth, adminController.getMessagePage);
 
-router.post('/delete-message', isAuth, adminController.deleteMsgPost);
+router.post('/delete-message', isAuth, adminController.deleteMsgPost);	//button 
 
 router.post('/send-email', isAuth, adminController.postSendEmail);
 
@@ -22,6 +22,8 @@ router.get('/help/how-delete', isAuth, adminController.getHelpDelete);
 router.get('/help', isAuth, adminController.getHelpPage);
 
 router.get('/add-content', isAuth, adminController.getAddContentPage);
+
+router.get('/add-content/add-form', isAuth, adminController.getAddContentForm);
 
 router.get('/users/add-user', isAuth, adminController.getAddUserPage);
 
@@ -57,7 +59,7 @@ router.post(
 	adminController.postEditUser
 );
 
-router.post('/users/delete-user', isAuth, adminController.postDeleteUser);
+router.post('/users/delete-user', isAuth, adminController.postDeleteUser);	//button
 router.get('/users', isAuth, adminController.getUsersPage);
 
 module.exports = router;
