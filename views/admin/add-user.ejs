@@ -14,11 +14,11 @@
     <form id="form" action="/admin/users/add-user" method="POST" novalidate>
         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
         <label for="mail">Email</label>
-            <input type="email" name="email">
+            <input type="email" name="email" value="<%= oldInput.email %>">
         <label for="password">Password</label>
-            <input type="password" name="password">
+            <input type="password" name="password" value="<%= oldInput.password%>">
         <label for="confirm">Confirm password</label>
-            <input type="password" name="confirm">
+            <input type="password" name="confirm" value="<%= oldInput.confirm%>">
         <button class="adduser-btn" type="submit">Add&nbspuser</button>
     
     </form>  

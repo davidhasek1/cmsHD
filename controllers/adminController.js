@@ -91,11 +91,11 @@ exports.getAddContentPage = (req, res, next) => {
 	});
 };
 
-exports.getAddContentForm =(req,res,next) => {
+exports.getAddContentForm = (req, res, next) => {
 	res.render('admin/contentForm', {
 		pageTitle: 'Add new image'
-	})
-}
+	});
+};
 
 exports.getUsersPage = (req, res, next) => {
 	const newPW = req.flash('changePW');
@@ -120,7 +120,11 @@ exports.getUserPage = (req, res, next) => {
 			res.render('admin/user-edit', {
 				pageTitle: 'User Edit',
 				user: user,
-				err: null
+				err: null,
+				oldInput: {
+					password: '',
+					confirm: ''
+				}
 			});
 		})
 		.catch((err) => console.log(err));
@@ -139,7 +143,11 @@ exports.postEditUser = (req, res, next) => {
 				res.render('admin/user-edit', {
 					pageTitle: 'User Edit',
 					user: user,
-					err: errors.array()[0].msg
+					err: errors.array()[0].msg,
+					oldInput: {
+						password: newPassword,
+						confirm: req.body.confirmpassword
+					}
 				});
 			})
 			.catch((err) => console.log(err));
@@ -188,7 +196,12 @@ exports.getAddUserPage = (req, res, next) => {
 	res.render('admin/add-user', {
 		pageTitle: 'Add new user',
 		error: error[0],
-		newUserMsg: newUser[0]
+		newUserMsg: newUser[0],
+		oldInput: {
+			email: '',
+			password: '',
+			confirm: ''
+		}
 	});
 };
 
@@ -203,32 +216,24 @@ exports.postAddUser = (req, res, next) => {
 		return res.status(422).render('admin/add-user', {
 			pageTitle: 'Add new user',
 			error: errors.array()[0].msg,
-			newUserMsg: newUser[0]
+			newUserMsg: newUser[0],
+			oldInput: {
+				email: email,
+				password: password,
+				confirm: req.body.confirm
+			}
 		});
 	}
-	const checkUserEmail = new Users(email); //nový objekt jen mail - chranim heslo - nejde použit Users...?
-	checkUserEmail
-		.checkExistingUser()
-		.then((userDoc) => {
-			if (userDoc) {
-				//není undefined
-				console.log('User already exists');
-				req.flash('error', 'User already exists');
+
+	bcrypt.hash(password, 12).then((hashedPassword) => {
+		const newUser = new Users(email, hashedPassword);
+		newUser
+			.save()
+			.then(() => {
+				console.log('New user saved');
+				req.flash('savedUser', 'New user added!');
 				return res.redirect('/admin/users/add-user');
-			}
-			bcrypt.hash(password, 12).then((hashedPassword) => {
-				const newUser = new Users(email, hashedPassword);
-				newUser
-					.save()
-					.then(() => {
-						console.log('New user saved');
-						req.flash('savedUser', 'New user added!');
-						return res.redirect('/admin/users/add-user');
-					})
-					.catch((err) => console.log(err));
-			});
-		})
-		.catch((err) => {
-			console.log('check Email error');
-		});
+			})
+			.catch((err) => console.log(err));
+	});
 };

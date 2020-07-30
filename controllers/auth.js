@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/users');
 const Mail = require('../models/sendEmail').cmsSendMsg;
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 
 exports.getLoginPage = (req, res, next) => {
 	//const isLoogedIn = req.get('Cookie').split('SL_wptGlobTipTmp=undefined; ')[1].trim().split('=')[1];
@@ -16,7 +16,10 @@ exports.getLoginPage = (req, res, next) => {
 		pageTitle: 'Admin Login',
 		isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
 		errorMessage: message[0],
-		password: pwChange[0]
+		password: pwChange[0],
+		oldInput: {
+			email: '',
+		}
 	});
 	console.log(req.session.isLoggedIn);
 };
@@ -27,13 +30,16 @@ exports.postLogin = (req, res, next) => {
 	const errors = validationResult(req);
 	let pwChange = req.flash('passwordChanged');
 
-	if(!errors.isEmpty()){
+	if (!errors.isEmpty()) {
 		console.log(errors);
 		return res.status(422).render('auth/adminLogin', {
 			pageTitle: 'Admin Login',
 			isAuthenticated: false, //vyrenderuje se login page tudíš authentication je false jako výchozí stav
 			errorMessage: errors.array()[0].msg,
-			password: pwChange[0] 
+			password: pwChange[0],
+			oldInput: {
+				email: email
+			}
 		});
 	}
 	User.findByEmail(email)
@@ -119,11 +125,12 @@ exports.getNewPassPage = (req, res, next) => {
 	const token = req.params.token;
 	//console.log(token);
 	User.findToken(token)
-		.then((foundUser) => {		//dokument hledanehu usera
-			if(!foundUser){
+		.then((foundUser) => {
+			//dokument hledanehu usera
+			if (!foundUser) {
 				res.redirect('/');
 			}
-			
+
 			res.render('auth/newpassword', {
 				pageTitle: 'Set new Password',
 				userID: foundUser._id.toString(),
@@ -141,31 +148,31 @@ exports.postNewPassword = (req, res, next) => {
 	const token = req.body.passwordToken;
 	const errors = validationResult(req);
 
-	if(!errors.isEmpty()){
+	if (!errors.isEmpty()) {
 		res.status(422).render('auth/newpassword', {
-				pageTitle: 'Set new Password',
-				userID: ID,
-				passwordToken: token,
-				error: errors.array()[0].msg
-			});
+			pageTitle: 'Set new Password',
+			userID: ID,
+			passwordToken: token,
+			error: errors.array()[0].msg
+		});
 	}
 
-	User.findById(ID)
-	.then((user) => {
-		return bcrypt.hash(password, 12)
-		.then((hash) => {
-			User.updatePassword(user, token, hash)
-			.then((result) => {
-				console.log('Password updated');
-				req.flash('passwordChanged', 'Your password was change');
-				res.redirect('/admin');
+	User.findById(ID).then((user) => {
+		return bcrypt
+			.hash(password, 12)
+			.then((hash) => {
+				User.updatePassword(user, token, hash)
+					.then((result) => {
+						console.log('Password updated');
+						req.flash('passwordChanged', 'Your password was change');
+						res.redirect('/admin');
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-	})
+	});
 };

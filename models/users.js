@@ -91,12 +91,12 @@ module.exports = class User {
 			.catch((err) => console.log(err));
 	}
 
-	checkExistingUser() {
+	static checkExistingUser(email) {
 		// možný problem že funkce neni static - kdyby byla - tak pravdepodobne normálne pošlu parametr email a Users objekt v adminctrl bude fungovat
 		const db = getDb();
 		return db
 			.collection('users')
-			.findOne({ email: this.email })
+			.findOne({ email: email })
 			.then((document) => {
 				// user nebo undefined
 				console.log('DB find OK');

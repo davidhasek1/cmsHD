@@ -10,15 +10,15 @@
    <% } %>
 
     <form id="form" action="/admin/users/edit-user" method="POST">
-
         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
         <input type="hidden" name="userId" value="<%=user._id%>">
+
         <label for="email">Email</label>
-        <input type="email" name="email" id="" value="<%=user.email %>">
+            <input type="email" name="email" disabled value="<%=user.email %>">
         <label for="new_password">New password</label>
-            <input type="password" name="newpassword" id="">
+            <input type="password" name="newpassword" value="<%= oldInput.password %>">
         <label for="confirm_password">Confirm Password</label>
-            <input type="password" name="confirmpassword" id="">
+            <input type="password" name="confirmpassword" value="<%= oldInput.confirm %>">
         <button class="adduser-btn" type="submit">Save</button>
     </form>
 </div>
