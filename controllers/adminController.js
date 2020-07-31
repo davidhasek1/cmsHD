@@ -1,6 +1,7 @@
 const Msg = require('../models/form');
 const MailTo = require('../models/sendEmail').cmsSendMsg;
 const Users = require('../models/users');
+const Images = require('../models/images');
 /* const User = require('../models/users'); */
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
@@ -93,9 +94,37 @@ exports.getAddContentPage = (req, res, next) => {
 
 exports.getAddContentForm = (req, res, next) => {
 	res.render('admin/contentForm', {
-		pageTitle: 'Add new image'
+		pageTitle: 'Add new image',
+		errorMsg: ''
 	});
 };
+
+exports.postAddContent = (req,res,next) => {
+	const title = req.body.title;
+	const image = req.file;
+	console.log(image);
+
+	if(!image) {
+		return res.render('admin/contentForm', {
+			pageTitle: 'Add new image',
+			errorMsg: 'Attech file is not an image'
+		});
+	}
+
+	const imageURL = image.path;
+
+	const imageData = new Images(title, imageURL);
+	imageData.saveImage()
+	.then((image) => {
+		console.log('IMG Saved');
+		res.redirect('/admin/add-content');
+
+	}).catch((err) => {
+		console.log(err);
+	});
+
+	
+}
 
 exports.getUsersPage = (req, res, next) => {
 	const newPW = req.flash('changePW');

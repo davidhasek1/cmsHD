@@ -7,9 +7,6 @@ exports.getHomePage = (req, res, next) => {
 	});
 };
 
-/* nefunkční momentálně */
-
-
 exports.getContactForm = (req, res, next) => {
 	res.render('contact-form', {
 		pageTitle: 'Kontaktní formulář'

@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const User = require('./models/users');
 const flash = require('connect-flash');
+const multer = require('multer');
 
 const MONGO_URI = require('./helpers/database').uri;
 
@@ -23,6 +24,23 @@ const store = new MongoDBStore({
     collection: 'sessions'
 });
 
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${new Date().toISOString()} - ${file.originalname}` );
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
 app.set('view engine', 'ejs');
 //app.set('views', path.join(__dirname, '/views'));   //definice cesty pro nested directories ve views dir
 app.set('views', 'views');
@@ -31,9 +49,9 @@ app.use(
     session({secret: 'mysecretstring', resave: false, saveUninitialized: false, store: store})
 );
 
-
-
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 //POZOR!!! - CSRF musí být deklarován PO bodyparseru, aby BP věděl o csrf!!!!!!
@@ -50,10 +68,13 @@ app.use((req,res,next) => {
     }
     User.findById(req.session.user._id)
         .then((user) => {
-            req.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+            if(!user) {
+                next();
+            }
+            req.user = user;    //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
             next();
         }).catch((err) => {
-            console.log(err);
+            throw new Error(err);
         });
 });
 

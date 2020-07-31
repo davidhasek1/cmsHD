@@ -25,6 +25,7 @@ router.get('/help', isAuth, adminController.getHelpPage);
 router.get('/add-content', isAuth, adminController.getAddContentPage);
 
 router.get('/add-content/add-form', isAuth, adminController.getAddContentForm);
+router.post('/add-content/add-form', isAuth, adminController.postAddContent);
 
 router.get('/users/add-user', isAuth, adminController.getAddUserPage);
 
@@ -36,7 +37,7 @@ router.post(
 			.isEmail()
 			.withMessage('Invalid email')
 			.custom((value, { req }) => {
-				return Users.checkExistingUser(value).then((userDoc) => {
+				return Users.findByEmail(value).then((userDoc) => {
 					if (userDoc) {
 						//není undefined
 						return Promise.reject('Email exists already!!!');
