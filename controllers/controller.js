@@ -1,10 +1,19 @@
 const Form = require('../models/form');
 const MailfromForm = require('../models/sendEmail').mailFromForm;
+const Images = require('../models/images');
 
 exports.getHomePage = (req, res, next) => {
-	res.render('index', {
-		pageTitle: 'Martin Bucek'
+	Images.fetchImg()
+	.then((img) => {
+		res.render('index', {
+		pageTitle: 'Martin Bucek',
+		images: img
 	});
+
+	}).catch((err) => {
+		console.log(err);	
+	});
+
 };
 
 exports.getContactForm = (req, res, next) => {

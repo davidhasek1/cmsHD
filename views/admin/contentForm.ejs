@@ -4,26 +4,26 @@
 
 <% if(isAuthenticated) { %>
 
-
     <h1 class="content-heading-h1">Form</h1>
     
-    <div class="form-div"></div>
+    <div class="form-div">
 
-    <% if(errorMsg) { %>
-        <div class="login-message login-message--error"><%= errorMsg %></div>
-    <% } %>
+        <% if(errorMsg) { %>
+            <div class="login-message login-message--error"><%= errorMsg %></div>
+        <% } %>
 
-    <form id="form" action="#" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-        <label for="title">Název</label>
-            <input type="text" name="title">
-        <label for="image">Image File</label>
-            <input type="file" name="image">
+        <form id="form" action="#" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            <label for="title">Název</label>
+                <input type="text" name="title">
+            <label for="image">Image File</label>
+                <input type="file" name="image">
+            
+            <button class="adduser-btn" type="submit">Save</button>
         
-        <button class="adduser-btn" type="submit">Save</button>
-    
-    </form>
+        </form>
     </div>
+    
 <% } %>
 
 <%- include('./adminLayouts/gridEnd.ejs') %>

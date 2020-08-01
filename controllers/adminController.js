@@ -87,9 +87,16 @@ exports.postSendEmail = (req, res, next) => {
 
 exports.getAddContentPage = (req, res, next) => {
 	//v budoucnu budu fetchovat datat z databaze obrazky
-	res.render('admin/add-content', {
-		pageTitle: 'Add content'
+	Images.fetchImg()
+	.then((img) => {
+		res.render('admin/add-content', {
+			pageTitle: 'Add content',
+			images: img
+		});
+	}).catch((err) => {
+		console.log(err);
 	});
+	
 };
 
 exports.getAddContentForm = (req, res, next) => {

@@ -101,30 +101,11 @@
                             <h1>Galerie</h1>
                         </div>
                         <div class="row">
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/carHD.jpg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/kniha.jpeg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/boy.jpg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/nature1.jpg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/carHD.jpg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/kniha.jpeg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/boy.jpg" alt="car">
-                            </div>
-                            <div class="gallery-img-wrapper">
-                                <img class="galerry-image" src="./img/nature1.jpg" alt="car">
-                            </div>
+                            <% images.forEach(img => { %>
+                                <div class="gallery-img-wrapper">
+                                    <img class="galerry-image" src="/<%= img.imageUrl %>" alt="<%= img.title %>">
+                                </div>
+                            <% }) %>
                         </div>            
                     </div>
                     
