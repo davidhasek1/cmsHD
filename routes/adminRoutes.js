@@ -16,10 +16,13 @@ router.post('/send-email', isAuth, adminController.postSendEmail);
 
 //router ADD content
 
-router.get('/help/how-show', isAuth, adminController.getHelpShow);
-router.get('/help/how-add', isAuth, adminController.getHelpAdd);
-router.get('/help/how-send', isAuth, adminController.getHelpSend);
-router.get('/help/how-delete', isAuth, adminController.getHelpDelete);
+router.get('/help/how-show-and-delete-msg', isAuth, adminController.getHelpShowDeleteMsg);
+router.get('/help/how-send-msg', isAuth, adminController.getHelpSendMsg);
+router.get('/help/how-add-image', isAuth, adminController.getHelpAddImage);
+router.get('/help/how-show-and-delete-image', isAuth, adminController.getHelpShowDeleteImg);
+router.get('/help/how-add-user', isAuth, adminController.getHelpAddUser);
+router.get('/help/how-change-password', isAuth, adminController.getHelpChangePwd);
+router.get('/help/how-delete-user', isAuth, adminController.getHelpDeleteUser);
 router.get('/help', isAuth, adminController.getHelpPage);
 
 router.get('/add-content', isAuth, adminController.getAddContentPage);

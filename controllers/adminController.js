@@ -2,7 +2,6 @@ const Msg = require('../models/form');
 const MailTo = require('../models/sendEmail').cmsSendMsg;
 const Users = require('../models/users');
 const Images = require('../models/images');
-/* const User = require('../models/users'); */
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
@@ -17,28 +16,43 @@ exports.getHelpPage = (req, res, next) => {
 		pageTitle: 'Guide'
 	});
 };
-
-exports.getHelpDelete = (req, res, next) => {
-	res.render('admin/help/howdelete', {
-		pageTitle: 'Guide'
+exports.getHelpShowDeleteMsg = (req, res, next) => {
+	res.render('admin/help/ShowDeleteMsg', {
+		pageTitle: 'Zobrazit / Smazat zprávu'
 	});
 };
 
-exports.getHelpSend = (req, res, next) => {
-	res.render('admin/help/howsend', {
-		pageTitle: 'Guide'
+exports.getHelpSendMsg = (req, res, next) => {
+	res.render('admin/help/SendMsg', {
+		pageTitle: 'Poslat zprávu'
 	});
 };
-exports.getHelpAdd = (req, res, next) => {
-	res.render('admin/help/howadd', {
-		pageTitle: 'Guide'
+exports.getHelpAddImage = (req, res, next) => {
+	res.render('admin/help/AddImage', {
+		pageTitle: 'Přidat fotku'
 	});
 };
-exports.getHelpShow = (req, res, next) => {
-	res.render('admin/help/howshow', {
-		pageTitle: 'Guide'
+exports.getHelpShowDeleteImg = (req, res, next) => {
+	res.render('admin/help/ShowDeleteImg', {
+		pageTitle: 'Zobrazit / Smazat fotku'
 	});
 };
+exports.getHelpAddUser = (req, res, next) => {
+	res.render('admin/help/AddUser', {
+		pageTitle: 'Přidat uživatele'
+	});
+};
+exports.getHelpChangePwd = (req, res, next) => {
+	res.render('admin/help/ChangePwd', {
+		pageTitle: 'Změnit heslo'
+	});
+};
+exports.getHelpDeleteUser = (req, res, next) => {
+	res.render('admin/help/DeleteUser', {
+		pageTitle: 'Smazat uživatele'
+	});
+};
+
 
 exports.getMailBoxPage = (req, res, next) => {
 	Msg.fetchAll()
@@ -80,7 +94,7 @@ exports.postSendEmail = (req, res, next) => {
 	const message = new MailTo(mail, subject, text);
 
 	console.log(message);
-	message.send();
+	/* message.send(); */
 	console.log('controller OK');
 	res.redirect('/admin/mailbox');
 };
