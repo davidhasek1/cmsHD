@@ -118,6 +118,21 @@ tr:nth-child(even) {
 	border: none;
 }
 
+.table-btn-show {
+	background-color: #249924;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	border: none;
+}
+.table-btn-hidden {
+	background-color:#ff0000;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	border: none;
+}
+
 .table-btn-edit {
 	background-color: #26baee;
 	padding: 10px;
@@ -190,6 +205,7 @@ a {
 	color: #000000;
 }
 
+
 /* Massage content */
 
 .msg-content {
@@ -232,6 +248,9 @@ a {
 h2 {
 	font-weight: 900;
 	color: #ffffff;
+}
+.info-msg {
+	color: #000000;
 }
 h4 {
 	color: #ffffff;
@@ -320,6 +339,10 @@ h4 {
 .add-btn-path,
 .add-btn-svg {
 	fill: #26baee;
+}
+
+.table-btn-show {
+	
 }
 
 .add-btn-span {

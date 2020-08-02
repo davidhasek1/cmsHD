@@ -88,15 +88,29 @@ exports.postSendEmail = (req, res, next) => {
 exports.getAddContentPage = (req, res, next) => {
 	//v budoucnu budu fetchovat datat z databaze obrazky
 	Images.fetchImg()
-	.then((img) => {
-		res.render('admin/add-content', {
-			pageTitle: 'Add content',
-			images: img
+		.then((img) => {
+			res.render('admin/add-content', {
+				pageTitle: 'Add content',
+				images: img
+			});
+		})
+		.catch((err) => {
+			console.log(err);
 		});
-	}).catch((err) => {
-		console.log(err);
-	});
-	
+};
+
+exports.postDeleteImage = (req, res, next) => {
+	const imgID = req.body.imgID;
+	const URL = req.body.imgURL;
+
+	Images.delete(imgID, URL)
+		.then((result) => {
+			console.log('Image successfully deleted');
+			res.redirect('/admin/add-content');
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 };
 
 exports.getAddContentForm = (req, res, next) => {
@@ -106,12 +120,12 @@ exports.getAddContentForm = (req, res, next) => {
 	});
 };
 
-exports.postAddContent = (req,res,next) => {
+exports.postAddContent = (req, res, next) => {
 	const title = req.body.title;
 	const image = req.file;
 	console.log(image);
 
-	if(!image) {
+	if (!image) {
 		return res.render('admin/contentForm', {
 			pageTitle: 'Add new image',
 			errorMsg: 'Attech file is not an image'
@@ -121,17 +135,16 @@ exports.postAddContent = (req,res,next) => {
 	const imageURL = image.path;
 
 	const imageData = new Images(title, imageURL);
-	imageData.saveImage()
-	.then((image) => {
-		console.log('IMG Saved');
-		res.redirect('/admin/add-content');
-
-	}).catch((err) => {
-		console.log(err);
-	});
-
-	
-}
+	imageData
+		.saveImage()
+		.then((image) => {
+			console.log('IMG Saved');
+			res.redirect('/admin/add-content');
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
 
 exports.getUsersPage = (req, res, next) => {
 	const newPW = req.flash('changePW');

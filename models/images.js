@@ -1,5 +1,6 @@
 const mongodb = require('mongodb');
 const getDb = require('../helpers/database').getDb;
+const ImgDeleteHelper = require('../helpers/image').deleteImgFile;
 
 const Images = class {
     constructor(title, imageUrl) {
@@ -25,7 +26,6 @@ const Images = class {
         const db = getDb();
         return db.collection('images').insertOne(this)
         .then((result) => {
-            console.log(result);
             console.log('img in db');
         }).catch((err) => {
             console.log(err);
@@ -38,6 +38,17 @@ const Images = class {
         .then((images) => {
             console.log('fetching images...');
             return images;
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    static delete(ID, URL) {
+        const db = getDb();
+        return db.collection('images').deleteOne({_id: mongodb.ObjectId(ID)})
+        .then((result) => {
+            ImgDeleteHelper(URL);
+            console.log('IMG deleted from DB');
         }).catch((err) => {
             console.log(err);
         });
