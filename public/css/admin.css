@@ -94,8 +94,8 @@ tr:nth-child(even) {
 	background-color: #dddddd;
 }
 .table-btn {
-	all: unset;
 	cursor: pointer;
+	outline: none;
 }
 
 .td-fixed {
@@ -141,10 +141,12 @@ tr:nth-child(even) {
 	border: none;
 }
 
-.table-btn {
+.table-btn-delete {
 	background-color: red;
 	padding: 10px;
 	border-radius: 5px;
+	border: none;
+	outline: none;
 }
 
 /* Navigation bar */

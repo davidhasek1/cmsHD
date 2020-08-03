@@ -120,14 +120,15 @@ exports.postImgVisibility = (req,res,next) => {
 	if(visibility === 'true') {
 		Images.visibilityIsTrue(ID)
 			.then((img) => {
-				console.log('ctrl img visib. update');
+				console.log('ctrl img visibility update');
 				res.redirect('/admin/add-content');
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}
-	else {
+	else 
+	{
 		Images.visibilityIsFalse(ID)
 			.then((img) => {
 				console.log('ctrl img visib. update');
@@ -157,7 +158,10 @@ exports.postDeleteImage = (req, res, next) => {
 exports.getAddContentForm = (req, res, next) => {
 	res.render('admin/contentForm', {
 		pageTitle: 'Add new image',
-		errorMsg: ''
+		errorMsg: '',
+		oldInput: {
+			title: ''
+		}
 	});
 };
 
@@ -169,7 +173,10 @@ exports.postAddContent = (req, res, next) => {
 	if (!image) {
 		return res.render('admin/contentForm', {
 			pageTitle: 'Add new image',
-			errorMsg: 'Attech file is not an image'
+			errorMsg: 'Attech file is not an image',
+			oldInput: {
+				title: title
+			}
 		});
 	}
 
