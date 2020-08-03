@@ -26,6 +26,7 @@ router.get('/help/how-delete-user', isAuth, adminController.getHelpDeleteUser);
 router.get('/help', isAuth, adminController.getHelpPage);
 
 router.get('/add-content', isAuth, adminController.getAddContentPage);
+router.post('/add-content/img-visibility', adminController.postImgVisibility);
 router.post('/add-content/delete-image', isAuth, adminController.postDeleteImage)
 
 router.get('/add-content/add-form', isAuth, adminController.getAddContentForm);

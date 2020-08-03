@@ -113,6 +113,33 @@ exports.getAddContentPage = (req, res, next) => {
 		});
 };
 
+exports.postImgVisibility = (req,res,next) => {
+	const ID = req.body.imgId;
+	const visibility = req.body.visibility;
+
+	if(visibility === 'true') {
+		Images.visibilityIsTrue(ID)
+			.then((img) => {
+				console.log('ctrl img visib. update');
+				res.redirect('/admin/add-content');
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+	else {
+		Images.visibilityIsFalse(ID)
+			.then((img) => {
+				console.log('ctrl img visib. update');
+				res.redirect('/admin/add-content');
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+};
+
 exports.postDeleteImage = (req, res, next) => {
 	const imgID = req.body.imgID;
 	const URL = req.body.imgURL;
