@@ -1,0 +1,119 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Poppins', sans-serif;
+	
+}
+.contact-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: 100vh;
+	width: 80%;
+	margin: auto;
+}
+.heading-wrap {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	width: 80%;
+	height: 10vh;
+}
+.contact-heading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	margin-top: 50px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 60%;
+}
+label {
+	width: 100%;
+	text-align: left;
+	padding: 10px 0 10px 5px;
+}
+input,
+textarea {
+	width: 100%;
+	padding: 12px 10px;
+	text-align: center;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid;
+	outline: none;
+	resize: none;
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+}
+textarea {
+	text-align: left;
+}
+.textarea-con {
+	width: 100%;
+}
+.btn {
+	margin: 20px;
+	background-color: #4caf50;
+	border: none;
+	color: black;
+	padding: 16px 32px;
+	text-decoration: none;
+	outline: none;
+	background: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 500;
+	transition: 0.3s ease-out;
+	font-family: 'Poppins', sans-serif;
+	
+}
+.btn:hover {
+	font-size: 20px;
+	transition: 0.3s ease-in;
+}
+.btn:focus {
+	font-size: 18px;
+	transition: 0.3s ease-out;
+}
+
+.sent-message {
+	margin: auto;
+	padding: 30px 0; /* upravit na menší hodnotu */
+	/* margin-top: 150px; */
+	width: 80%;
+	border: 1px solid #14d314;
+	padding: 0.7rem;
+	border-radius: 5px;
+	background: #defdde;
+	color: #14d314;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+/* .sent-message-error {
+	border-color: #ff0000;
+	background: #ffb8b8;
+	color: red;
+} */

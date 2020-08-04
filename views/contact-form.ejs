@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/contact-form.css">
     <title><%= pageTitle %></title>
 </head>
 <body>
-    <section class="contact-section" id="contact">
-              
-        <div class="form-container">
+    <section class="contact-section">
+            
+        <div class="heading-wrap">
             <div class="contact-heading">
-                <h1>Kontakt</h1>
+                <h1>Mám dotaz</h1>
             </div>
+        </div>
 
             <div class="form-wrapper">
-                     
-                <div class="form-div">
+                
+                <% if(msgStatus) { %>
+                    <div class="sent-message sent-message-error"><%= msgStatus %></div>
+                <% } %>
+
                     <form class="form" action="/contact-form" method="POST">
                         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                         <label for="name">Jmeno a příjmení</label>
@@ -24,14 +30,11 @@
                         <input type="email" name="email" id="">
                         <label for="message">Zpráva</label>
                         <div class="textarea-con">
-                            <textarea name="message" id="" cols="30" rows="4"></textarea>
+                            <textarea name="message" id="" cols="30" rows="10"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-white btn-animated">Odeslat</button>
+                        <button type="submit" class="btn">Odeslat</button>
                     </form>
-                </div>
             </div>
-        </div>
-        
     </section>
 </body>
 </html>

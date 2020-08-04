@@ -17,8 +17,10 @@ exports.getHomePage = (req, res, next) => {
 };
 
 exports.getContactForm = (req, res, next) => {
+	const msgSent = req.flash('msgSent');
 	res.render('contact-form', {
-		pageTitle: 'Kontaktní formulář'
+		pageTitle: 'Kontaktní formulář',
+		msgStatus: msgSent[0]
 	});
 };
 
@@ -32,7 +34,8 @@ exports.postContactForm = (req, res, next) => {
 	data.save()
 	.then(() => {
 		console.log('New MSG created');
-		res.redirect('/admin/cms');
+		req.flash('msgSent', 'Zpráva úspěšně odeslána');
+		res.redirect('/contact-form');
 	})
   	.catch((err) => console.log(err));
         
