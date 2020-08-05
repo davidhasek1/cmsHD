@@ -19,10 +19,13 @@
             <div class="form-wrapper">
                 
                 <% if(msgStatus) { %>
-                    <div class="sent-message sent-message-error"><%= msgStatus %></div>
+                    <div class="sent-message"><%= msgStatus %></div>
+                <% } %>
+                <% if(error) { %>
+                <div class="sent-message sent-message-error"><%= error %></div>
                 <% } %>
 
-                    <form class="form" action="/contact-form" method="POST">
+                    <form class="form" action="/contact-form" method="POST" novalidate>
                         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                         <label for="name">Jmeno a příjmení</label>
                         <input type="text" name="fullname" id="">

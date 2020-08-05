@@ -1,20 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/controller');
-
-
-/* router.get('/about',controller.getAboutPage);
-
-router.get('/services',controller.getServicesPage);
-
-router.get('/contacts',controller.getContactPage);
-router.post('/contacts', controller.postContacts); */
+const { check } = require('express-validator');
 
 router.get('/', controller.getHomePage);
 
 router.get('/contact-form', controller.getContactForm);
 
-router.post('/contact-form', controller.postContactForm)
-
+router.post('/contact-form',
+    check('email')
+    .isEmail()
+    .withMessage('Formát emailu není správný'),
+controller.postContactForm);
 
 module.exports = router;

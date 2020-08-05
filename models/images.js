@@ -91,6 +91,17 @@ const Images = class {
 				console.log(err);
 			});
 	}
+
+	static imgCount() {
+		const db = getDb();
+		return db.collection('images').countDocuments({ visibility: true })
+		.then((count) => {
+			console.log(count);
+			return count;
+		}).catch((err) => {
+			console.log('img count failed');
+		});
+	}
 };
 
 module.exports = Images;

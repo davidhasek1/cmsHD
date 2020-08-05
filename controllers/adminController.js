@@ -6,9 +6,18 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
 exports.getCMSPage = (req, res, next) => {
-	res.render('admin/cms', {
-		pageTitle: 'cmsHD'
-	});
+	Msg.msgCount()
+	.then((countMsg) => {
+		Images.imgCount()
+		.then((countImg) => {
+			res.render('admin/cms', {
+				pageTitle: 'cmsHD',
+				msgCount: countMsg,
+				imgCount: countImg
+			});
+		}).catch((err) => console.log(err));
+	})
+	.catch((err) => console.log(err));
 }; //pokud  req.user je prázdný - nepřiřadil se user v modalu auth.js, tak je hodnota implicitně FALSE, pokud je user nalezen hodnota je TRUE
 
 exports.getHelpPage = (req, res, next) => {
@@ -52,7 +61,6 @@ exports.getHelpDeleteUser = (req, res, next) => {
 		pageTitle: 'Smazat uživatele'
 	});
 };
-
 
 exports.getMailBoxPage = (req, res, next) => {
 	Msg.fetchAll()
@@ -113,11 +121,11 @@ exports.getAddContentPage = (req, res, next) => {
 		});
 };
 
-exports.postImgVisibility = (req,res,next) => {
+exports.postImgVisibility = (req, res, next) => {
 	const ID = req.body.imgId;
 	const visibility = req.body.visibility;
 
-	if(visibility === 'true') {
+	if (visibility === 'true') {
 		Images.visibilityIsTrue(ID)
 			.then((img) => {
 				console.log('ctrl img visibility update');
@@ -126,9 +134,7 @@ exports.postImgVisibility = (req,res,next) => {
 			.catch((err) => {
 				console.log(err);
 			});
-	}
-	else 
-	{
+	} else {
 		Images.visibilityIsFalse(ID)
 			.then((img) => {
 				console.log('ctrl img visib. update');
@@ -138,7 +144,6 @@ exports.postImgVisibility = (req,res,next) => {
 				console.log(err);
 			});
 	}
-
 };
 
 exports.postDeleteImage = (req, res, next) => {

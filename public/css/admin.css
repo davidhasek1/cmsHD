@@ -458,4 +458,28 @@ input, textarea {
 	color: #ff0000 ;
 }
 
+.info-container {
+	display: flex;
+	margin: auto;
+	justify-content: space-evenly;
 
+}
+
+.msg-count {
+	display: flex;
+	width: 250px;
+	height: 125px;
+	margin: 25px 0 25px 0;
+	text-align: center;
+	background-color: #fff;
+	align-items: center;
+	justify-content: space-evenly;
+	flex-direction: column;
+	border-radius: 10px;
+}
+.msg-count h3 {
+	font-size: 20px;
+}
+.msg-count p {
+	font-size: 25px;
+}

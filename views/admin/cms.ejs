@@ -4,6 +4,22 @@
 <% if(isAuthenticated) { %>
 <h1 class="content-heading-h1">CMS homepage</h1>
 
+<div class="info-container">
+    <div class="msg-count">
+        <h3>Počet zpráv</h3>
+        <p><%= msgCount %></p>
+    </div>
+    <div class="msg-count">
+        <h3>Veřejné Obrázky</h3>
+        <p><%= imgCount %></p>
+    </div>
+    <div class="msg-count">
+        <h3>Čas</h3>
+        <p>10</p>
+    </div>
+</div>
+
+
 <% } %>
 
 

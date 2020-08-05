@@ -1,8 +1,4 @@
 
-contact form 
-
-    - validation email
-
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
