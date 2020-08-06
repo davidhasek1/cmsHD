@@ -1,8 +1,12 @@
 
+
+počeštit aplikaci
+
+udělat návody
+
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
-    pořešit footer - ted ho tam raději nemam :D
-
+    
     UDELAT MENU TAK, ŽE KDYŽ JE MALA OBRAZOVKA TAK SE POSADÍ DOLŮ
 
