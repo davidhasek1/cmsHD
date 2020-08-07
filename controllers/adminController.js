@@ -85,12 +85,12 @@ exports.getMessagePage = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
-exports.deleteMsgPost = (req, res, next) => {
-	const ID = req.body.msgId;
+exports.deleteMsg = (req, res, next) => {
+	const ID = req.params.msgId;
 	Msg.delete(ID)
 		.then(() => {
 			//není potřeba prametr - nepotřebuješ žadná data, když je mažeš
-			res.redirect('/admin/mailbox');
+			res.status(200).json({message: "Success!"});
 		})
 		.catch((err) => console.log(err));
 };
@@ -280,11 +280,11 @@ exports.postEditUser = (req, res, next) => {
 		});
 };
 
-exports.postDeleteUser = (req, res, next) => {
-	const userId = req.body.userId;
+exports.DeleteUser = (req, res, next) => {
+	const userId = req.params.userId;
 	Users.delete(userId)
 		.then(() => {
-			res.redirect('/admin/users');
+			res.status(200).json({message: "User deleted success"});
 		})
 		.catch((err) => {
 			console.log(err);

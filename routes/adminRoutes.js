@@ -10,7 +10,7 @@ router.get('/cms', isAuth, adminController.getCMSPage);
 router.get('/mailbox', isAuth, adminController.getMailBoxPage);
 router.get('/mailbox/:msgId', isAuth, adminController.getMessagePage);
 
-router.post('/delete-message', isAuth, adminController.deleteMsgPost); //button
+router.delete('/mailbox/:msgId', isAuth, adminController.deleteMsg); //button
 
 router.post('/send-email', isAuth, adminController.postSendEmail);
 
@@ -49,7 +49,7 @@ router.post(
 					}
 				});
 			})
-			.normalizeEmail(), //odstraní WS, uppercases atd.
+			/* .normalizeEmail() */, //odstraní WS, uppercases atd.
 		body('password', 'Enter minimum 6 characters').isLength({ min: 6 }).trim(), //body kontroluje pouze definovaný segment
 
 		body('confirm')
@@ -80,7 +80,8 @@ router.post(
 	adminController.postEditUser
 );
 
-router.post('/users/delete-user', isAuth, adminController.postDeleteUser); //button
+router.delete('/users/:userId', isAuth, adminController.DeleteUser); //button
+
 router.get('/users', isAuth, adminController.getUsersPage);
 
 module.exports = router;
