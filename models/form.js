@@ -71,12 +71,15 @@ module.exports = class FormData {
 
 	static msgCount() {
 		const db = getDb();
-		return db.collection('messages').countDocuments()
-		.then((number) => {
-			console.log(number);
-			return number;
-		}).catch((err) => {
-			console.log('counter failed');
-		});
+		return db
+			.collection('messages')
+			.countDocuments()
+			.then((number) => {
+				console.log(number);
+				return number;
+			})
+			.catch((err) => {
+				console.log('counter failed');
+			});
 	}
 };

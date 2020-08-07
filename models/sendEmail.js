@@ -20,7 +20,7 @@ const cmsSendMsg = class SendMail {
 			to: email,
 			subject: 'Reset Password',
 			html: `<p>Through link down below you reset your password</p><br>
-			       <a href='http://localhost:4000/reset/${token}'>Reset</a>`
+			       <a href='http://localhost:5000/reset/${token}'>Reset</a>`
 		};
 		transporter.sendMail(mailOption, (err, info) => {
 			if (info) {

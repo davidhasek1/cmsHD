@@ -44,15 +44,19 @@ exports.postLogin = (req, res, next) => {
 	}
 	User.findByEmail(email)
 		.then((user) => {
+			
 			if (!user) {
 				req.flash('error', 'Invalid email or password');
 				return res.redirect('/admin');
 			}
+			
 			bcrypt
 				.compare(password, user.password) //bcrypt vrací bolean
 				.then((doMatch) => {
+					console.log(doMatch);
 					if (doMatch) {
 						req.session.isLoggedIn = true;
+						
 						req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
 						return req.session.save((err) => {
 							// nejprve se uloží session a pak se s jistotou vyrenderuje full page bez prodlení
