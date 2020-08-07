@@ -53,10 +53,10 @@ exports.postLogin = (req, res, next) => {
 			bcrypt
 				.compare(password, user.password) //bcrypt vrací bolean
 				.then((doMatch) => {
-					console.log(doMatch);
+					console.log("PW match " + doMatch);
 					if (doMatch) {
 						req.session.isLoggedIn = true;
-						
+						console.log("Session " + req.session.isLoggedIn);
 						req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
 						return req.session.save((err) => {
 							// nejprve se uloží session a pak se s jistotou vyrenderuje full page bez prodlení
