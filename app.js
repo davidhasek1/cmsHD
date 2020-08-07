@@ -95,6 +95,7 @@ app.use(authRouter);
 app.use(errCtrl.getError);
 
 mongoConnect(()=> {
+    console.log('Welcome in cmsHD!');
     app.listen(5000);
 });
 

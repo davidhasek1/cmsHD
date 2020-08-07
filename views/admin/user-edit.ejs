@@ -3,7 +3,7 @@
 
 
 <% if(isAuthenticated) { %>
-<h1 class="content-heading-h1">Edit user</h1>
+<h1 class="content-heading-h1">Změna hesla</h1>
 <div class="form-div">
     <% if(err) { %>
         <div class="login-message login-message--error"><%= err %></div>
@@ -15,11 +15,11 @@
 
         <label for="email">Email</label>
             <input type="email" name="email" disabled value="<%=user.email %>">
-        <label for="new_password">New password</label>
+        <label for="new_password">Nové heslo</label>
             <input type="password" name="newpassword" value="<%= oldInput.password %>">
-        <label for="confirm_password">Confirm Password</label>
+        <label for="confirm_password">Potvrdit heslo</label>
             <input type="password" name="confirmpassword" value="<%= oldInput.confirm %>">
-        <button class="adduser-btn" type="submit">Save</button>
+        <button class="adduser-btn" type="submit">Uložit</button>
     </form>
 </div>
 <% } %>
