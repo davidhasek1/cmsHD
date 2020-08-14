@@ -3,17 +3,16 @@ const MailfromForm = require('../models/sendEmail').mailFromForm;
 const Images = require('../models/images');
 const { validationResult } = require('express-validator');
 
-exports.getHomePage = (req, res, next) => {
-	Images.fetchImg()
-		.then((img) => {
-			res.render('index', {
-				pageTitle: 'Martin Bucek',
-				images: img
-			});
-		})
-		.catch((err) => {
-			console.log(err);
+exports.getHomePage = async (req, res, next) => {
+	try {
+		const img = await Images.fetchImg();
+		res.render('index', {
+			pageTitle: 'Martin Bucek',
+			images: img
 		});
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 exports.getContactForm = (req, res, next) => {
@@ -25,7 +24,7 @@ exports.getContactForm = (req, res, next) => {
 	});
 };
 
-exports.postContactForm = (req, res, next) => {
+exports.postContactForm = async (req, res, next) => {
 	const name = req.body.fullname;
 	const email = req.body.email;
 	const message = req.body.message;
@@ -41,14 +40,13 @@ exports.postContactForm = (req, res, next) => {
 		});
 	}
 
-	data
-		.save()
-		.then(() => {
-			console.log('New MSG created');
-			req.flash('msgSent', 'Zpráva úspěšně odeslána');
-			res.redirect('/contact-form');
-		})
-		.catch((err) => console.log(err));
-
+	try {
+		await data.save();
+		console.log('New MSG created');
+		req.flash('msgSent', 'Zpráva úspěšně odeslána');
+		res.redirect('/contact-form');
+	} catch (error) {
+		console.log(error);
+	}
 	/*  mail.sendMailFromForm(); */
 };

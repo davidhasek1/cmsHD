@@ -16,11 +16,11 @@ const cmsSendMsg = class SendMail {
 			}
 		});
 		const mailOption = {
-			from: '',
+			from: 'hasek.david1@gmail.com',
 			to: email,
 			subject: 'Reset Password',
-			html: `<p>Through link down below you reset your password</p><br>
-			       <a href='http://localhost:5000/reset/${token}'>Reset</a>`
+			html: `<h2>Žádost o změnu hesla | cmsHD</h2><br>
+			<a href='http://localhost:4000/reset/${token}'>Zde můžete změnit Vaše heslo</a>`
 		};
 		transporter.sendMail(mailOption, (err, info) => {
 			if (info) {

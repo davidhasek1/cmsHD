@@ -5,18 +5,18 @@ const MONGO_URI = 'mongodb+srv://davidhasek:davidhasek@cluster0-fw5d7.mongodb.ne
 
 let _db;
 
-const mongoConnect = (callback) => {
+const mongoConnect = async (callback) => {
 
-    MongoClient.connect(MONGO_URI, { useUnifiedTopology: true } )
-    .then(client => {
+    try {
+        const client = await MongoClient.connect(MONGO_URI, { useUnifiedTopology: true } );
         console.log('connected');
         _db = client.db();
         callback();
-    })
-    .catch((err)=> {
-        console.log(err);
-        throw err;
-    });
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
 };
 
 const getDb = () => {

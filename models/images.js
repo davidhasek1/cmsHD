@@ -23,33 +23,25 @@ const Images = class {
 		return dtfUK.format(d);
 	}
 
-	saveImage() {
+	async saveImage() {
 		const db = getDb();
-		return db
-			.collection('images')
-			.insertOne(this)
-			.then((result) => {
-				console.log('img in db');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			await db.collection('images').insertOne(this);
+			console.log('img saved in db');
+		} catch (error) {
+			console.log('Fail to save image into db');
+		}
 	}
 
-	static fetchImg() {
+	static async fetchImg() {
 		const db = getDb();
-		return db
-			.collection('images')
-			.find()
-			.sort({ date: -1 })
-			.toArray()
-			.then((images) => {
-				console.log('fetching images...');
-				return images;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			const fetchImg = await db.collection('images').find().sort({ date: -1 }).toArray();
+			console.log('fetching images...');
+			return fetchImg;
+		} catch (error) {
+			console.log('fail to fetch img from db');
+		}
     }
     
     static visibilityIsTrue(ID) {

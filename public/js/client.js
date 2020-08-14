@@ -3,7 +3,7 @@ const deleteMessage = (btn) => {
 
     const msgID = btn.parentNode.querySelector('[name=msgId]').value;
     const csrfToken = btn.parentNode.querySelector('[name=_csrf]').value;
-    const msgElement = btn.closest('div');
+    const msgElement = btn.closest('tr');
 
     fetch(`/admin/mailbox/${msgID}`, {
         method: 'DELETE',

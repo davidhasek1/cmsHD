@@ -4,6 +4,12 @@ počeštit aplikaci
 
 udělat návody
 
+
+async await
+
+controleres: admin ctrl, auth, controller, database
+
+models: form, 
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!

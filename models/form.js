@@ -22,64 +22,57 @@ module.exports = class FormData {
 		return dtfUK.format(d);
 	}
 
-	save() {
+	async save() {
 		const db = getDb();
-		return db
-			.collection('messages')
-			.insertOne(this)
-			.then((result) => console.log('New MSG saved'))
-			.catch((err) => console.log(err));
+		try {
+			await db.collection('messages').insertOne(this);
+			console.log('New MSG saved')
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static fetchAll() {
+	static async fetchAll() {
 		const db = getDb();
-		return db
-			.collection('messages')
-			.find()
-			.sort({ date: -1 })
-			.toArray()
-			.then((messages) => {
-				console.log(messages);
-				return messages;
-			})
-			.catch((err) => console.log(err));
+		try {
+			const messages = await db.collection('messages').find().sort({ date: -1 }).toArray()
+			console.log(messages);
+			return messages;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static findById(msgId) {
+	static async findById(msgId) {
 		const db = getDb();
-		return db
-			.collection('messages')
-			.find({ _id: new mongodb.ObjectId(msgId) })
-			.next()
-			.then((message) => {
-				console.log(message);
-				return message;
-			})
-			.catch((err) => console.log(err));
+		try {
+			const singleMsg = await db.collection('messages').findOne({ _id: new mongodb.ObjectId(msgId) });
+			console.log(singleMsg);
+			return singleMsg;
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
-	static delete(msgId) {
+	static async delete(msgId) {
 		const db = getDb();
-		return db
-			.collection('messages')
-			.deleteOne({ _id: new mongodb.ObjectId(msgId) })
-			.then((result) => {
-				console.log('MSG Deleted');
-			})
-			.catch((err) => console.log(err));
+		try {
+			await db.collection('messages').deleteOne({ _id: new mongodb.ObjectId(msgId) });
+			console.log('MSG Del DB');
+		} catch (err) {
+			console.log(err);
+		}
+		
 	}
 
-	static msgCount() {
+	static async msgCount() {
 		const db = getDb();
-		return db
-			.collection('messages')
-			.countDocuments()
-			.then((number) => {
-				console.log(number);
-				return number;
-			})
-			.catch((err) => {
-				console.log('counter failed');
-			});
+		try {
+			const number = db.collection('messages').countDocuments();
+			console.log(number);
+			return number;
+		} catch (err) {
+			console.log('counter failed');
+		}
 	}
 };

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/users');
 const Mail = require('../models/sendEmail').cmsSendMsg;
 const { validationResult } = require('express-validator');
+const { use } = require('../routes/adminRoutes');
 
 exports.getLoginPage = (req, res, next) => {
 	//const isLoogedIn = req.get('Cookie').split('SL_wptGlobTipTmp=undefined; ')[1].trim().split('=')[1];
@@ -18,13 +19,13 @@ exports.getLoginPage = (req, res, next) => {
 		errorMessage: message[0],
 		password: pwChange[0],
 		oldInput: {
-			email: '',
+			email: ''
 		}
 	});
 	console.log(req.session.isLoggedIn);
 };
 
-exports.postLogin = (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	const errors = validationResult(req);
@@ -42,36 +43,30 @@ exports.postLogin = (req, res, next) => {
 			}
 		});
 	}
-	User.findByEmail(email)
-		.then((user) => {
-			
-			if (!user) {
-				req.flash('error', 'Invalid email or password');
-				return res.redirect('/admin');
-			}
-			
-			bcrypt
-				.compare(password, user.password) //bcrypt vrací bolean
-				.then((doMatch) => {
-					console.log("PW match " + doMatch);
-					if (doMatch) {
-						req.session.isLoggedIn = true;
-						console.log("Session " + req.session.isLoggedIn);
-						req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
-						return req.session.save((err) => {
-							// nejprve se uloží session a pak se s jistotou vyrenderuje full page bez prodlení
-							console.log(err);
-							res.redirect('/admin/cms');
-						});
-					}
-					req.flash('error', 'Invalid email or password');
-					res.redirect('/admin');
-				})
-				.catch((err) => console.log(err));
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+
+	try {
+		const user = await User.findByEmail(email);
+		if (!user) {
+			req.flash('error', 'Invalid email or password');
+			return res.redirect('/admin');
+		}
+		const pwDoMatch = await bcrypt.compare(password, user.password);
+		console.log('PW match ' + pwDoMatch);
+		if (pwDoMatch) {
+			req.session.isLoggedIn = true;
+			console.log('Session ' + req.session.isLoggedIn);
+			req.session.user = user; //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+			return req.session.save((err) => {
+				// nejprve se uloží session a pak se s jistotou vyrenderuje full page bez prodlení
+				console.log(err);
+				res.redirect('/admin/cms');
+			});
+		}
+		req.flash('error', 'Invalid email or password');
+		res.redirect('/admin');
+	} catch (error) {
+		console.log(err);
+	}
 };
 
 exports.postLogout = (req, res, next) => {
@@ -94,59 +89,49 @@ exports.getReset = (req, res, next) => {
 
 exports.postReset = (req, res, next) => {
 	const email = req.body.email;
-	crypto.randomBytes(32, (err, buffer) => {
-		if (err) {
-			console.log(err);
-			return res.redirect('/reset');
+	crypto.randomBytes(32, async (err, buffer) => {
+		try {
+			if (err) {
+				console.log(err);
+				return res.redirect('/reset');
+			}
+			const token = buffer.toString('hex');
+			const user = await User.findByEmail(email);
+			if (!user) {
+				req.flash('error', 'Email addres does not exists');
+				return res.redirect('/reset');
+			}
+			const userToken = await User.setReset(user, token);
+			console.log('DB resetToken update ducument OK');
+			req.flash('passwordReset', 'Email sent!');
+			console.log(userToken);
+			res.redirect('/reset');
+			await Mail.resetPassword(email, token);
+		} catch (error) {
+			console.log(error);
 		}
-		const token = buffer.toString('hex');
-		User.findByEmail(email)
-			.then((user) => {
-				//dokument usera se schodu v mailu
-				if (!user) {
-					req.flash('error', 'Email addres does not exists');
-					return res.redirect('/reset');
-				}
-				console.log(user);
-				return User.setReset(user, token)
-					.then((result) => {
-						console.log('DB resetToken update ducument OK');
-						req.flash('passwordReset', 'Email sent!');
-						console.log(result);
-
-						res.redirect('/reset');
-						Mail.resetPassword(email, token);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			})
-			.catch((err) => console.log(err));
 	});
 };
 
-exports.getNewPassPage = (req, res, next) => {
+exports.getNewPassPage = async (req, res, next) => {
 	const token = req.params.token;
-	//console.log(token);
-	User.findToken(token)
-		.then((foundUser) => {
-			//dokument hledanehu usera
-			if (!foundUser) {
-				res.redirect('/');
-			}
-
-			res.render('auth/newpassword', {
-				pageTitle: 'Set new Password',
-				userID: foundUser._id.toString(),
-				passwordToken: token,
-				error: null
-			});
-		})
-		.catch((err) => {
-			console.log(err);
+	try {
+		const userWithToken = await User.findToken(token);
+		if (!userWithToken) {
+			return res.redirect('/');
+		}
+		res.render('auth/newpassword', {
+			pageTitle: 'Set new Password',
+			userID: userWithToken._id.toString(),
+			passwordToken: token,
+			error: null
 		});
+		
+	} catch (error) {
+		console.log(error);
+	}
 };
-exports.postNewPassword = (req, res, next) => {
+exports.postNewPassword = async (req, res, next) => {
 	const ID = req.body.userId;
 	const password = req.body.password;
 	const token = req.body.passwordToken;
@@ -161,22 +146,14 @@ exports.postNewPassword = (req, res, next) => {
 		});
 	}
 
-	User.findById(ID).then((user) => {
-		return bcrypt
-			.hash(password, 12)
-			.then((hash) => {
-				User.updatePassword(user, token, hash)
-					.then((result) => {
-						console.log('Password updated');
-						req.flash('passwordChanged', 'Your password was change');
-						res.redirect('/admin');
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	});
+	try {
+		const user = await User.findById(ID);
+		const hash = await bcrypt.hash(password, 12);
+		const pwUpdate = await User.updatePassword(user, token, hash);
+		console.log(pwUpdate);
+		req.flash('passwordChanged', 'Your password was change');
+		res.redirect('/admin');
+	} catch (error) {
+		console.log(error);
+	}
 };

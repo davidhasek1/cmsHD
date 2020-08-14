@@ -4,20 +4,22 @@ const Users = require('../models/users');
 const Images = require('../models/images');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
+const { all } = require('../routes/adminRoutes');
 
-exports.getCMSPage = (req, res, next) => {
-	Msg.msgCount()
-	.then((countMsg) => {
-		Images.imgCount()
-		.then((countImg) => {
-			res.render('admin/cms', {
-				pageTitle: 'cmsHD',
-				msgCount: countMsg,
-				imgCount: countImg
-			});
-		}).catch((err) => console.log(err));
-	})
-	.catch((err) => console.log(err));
+exports.getCMSPage = async (req, res, next) => {
+	try {
+		const msgCount = await Msg.msgCount();
+		const imgCount = await Images.imgCount();
+		res.render('admin/cms', {
+			pageTitle: 'cmsHD',
+			msgCount: msgCount,
+			imgCount: imgCount
+		});
+		
+	} catch (error) {
+		console.log(err);
+	}
+		
 }; //pokud  req.user je prázdný - nepřiřadil se user v modalu auth.js, tak je hodnota implicitně FALSE, pokud je user nalezen hodnota je TRUE
 
 exports.getHelpPage = (req, res, next) => {
@@ -62,37 +64,44 @@ exports.getHelpDeleteUser = (req, res, next) => {
 	});
 };
 
-exports.getMailBoxPage = (req, res, next) => {
-	Msg.fetchAll()
-		.then((messages) => {
+exports.getMailBoxPage = async (req, res, next) => {
+	try {
+		const allMsgs = await Msg.fetchAll();
 			res.render('admin/mailbox', {
-				msg: messages,
+				msg: allMsgs,
 				pageTitle: 'Mailbox'
 			});
-		})
-		.catch((err) => console.log(err));
+	} catch (err)  {
+		console.log(err);
+		console.log('fail fetch messages from DB');
+	}
+	
 };
 
-exports.getMessagePage = (req, res, next) => {
+exports.getMessagePage = async (req, res, next) => {
 	const ID = req.params.msgId;
-	Msg.findById(ID)
-		.then((message) => {
+	try {
+		const singleMsg = await Msg.findById(ID);
 			res.render('admin/selectedMsg', {
-				msg: message,
-				pageTitle: message.name
+				msg: singleMsg,
+				pageTitle: singleMsg.name
 			});
-		})
-		.catch((err) => console.log(err));
+
+	} catch (err) {
+		console.log(err);
+		console.log('fail fetch single message');
+	}
 };
 
-exports.deleteMsg = (req, res, next) => {
+////Delete
+exports.deleteMsg = async (req, res, next) => {
 	const ID = req.params.msgId;
-	Msg.delete(ID)
-		.then(() => {
-			//není potřeba prametr - nepotřebuješ žadná data, když je mažeš
-			res.status(200).json({message: "Success!"});
-		})
-		.catch((err) => console.log(err));
+	try {
+		await Msg.delete(ID);
+		res.status(200).json({message: "Success!"});
+	} catch (error) {
+		console.log(err);
+	}
 };
 
 exports.postSendEmail = (req, res, next) => {
@@ -107,57 +116,63 @@ exports.postSendEmail = (req, res, next) => {
 	res.redirect('/admin/mailbox');
 };
 
-exports.getAddContentPage = (req, res, next) => {
-	//v budoucnu budu fetchovat datat z databaze obrazky
-	Images.fetchImg()
-		.then((img) => {
+exports.getAddContentPage = async (req, res, next) => {
+	try {
+		const allImgs = await Images.fetchImg();
 			res.render('admin/add-content', {
 				pageTitle: 'Add content',
-				images: img
+				images: allImgs
 			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-};
+	} catch (error) {
+		console.log(error);
+		console.log('fail fetch images');
+	}
+	
+};	
+		
 
-exports.postImgVisibility = (req, res, next) => {
+exports.postImgVisibility = async (req, res, next) => {
 	const ID = req.body.imgId;
 	const visibility = req.body.visibility;
 
 	if (visibility === 'true') {
-		Images.visibilityIsTrue(ID)
-			.then((img) => {
-				console.log('ctrl img visibility update');
-				res.redirect('/admin/add-content');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			const visible = await Images.visibilityIsTrue(ID);
+			console.log('ctrl img visibility update');
+			console.log(visible);
+			res.redirect('/admin/add-content');
+		} catch (error) {
+			console.log(error);
+			console.log('visibility');
+		}
+		
 	} else {
-		Images.visibilityIsFalse(ID)
-			.then((img) => {
-				console.log('ctrl img visib. update');
-				res.redirect('/admin/add-content');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			const disVisible = await Images.visibilityIsFalse(ID);
+			console.log('ctrl img visib. update');
+			console.log(disVisible);
+			res.redirect('/admin/add-content');
+		
+		} catch (error) {
+			console.log(error);
+			console.log('disvisibility');
+		}
 	}
 };
 
-exports.postDeleteImage = (req, res, next) => {
+////DELETE
+exports.postDeleteImage = async (req, res, next) => {
 	const imgID = req.body.imgID;
 	const URL = req.body.imgURL;
 
-	Images.delete(imgID, URL)
-		.then((result) => {
-			console.log('Image successfully deleted');
-			res.redirect('/admin/add-content');
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		await Images.delete(imgID, URL);
+		console.log('Image successfully deleted');
+		res.redirect('/admin/add-content');
+	} catch (err){
+		console.log(err);
+	}
+	
 };
 
 exports.getAddContentForm = (req, res, next) => {
@@ -170,7 +185,7 @@ exports.getAddContentForm = (req, res, next) => {
 	});
 };
 
-exports.postAddContent = (req, res, next) => {
+exports.postAddContent = async (req, res, next) => {
 	const title = req.body.title;
 	const image = req.file;
 	console.log(image);
@@ -188,107 +203,98 @@ exports.postAddContent = (req, res, next) => {
 	const imageURL = image.path;
 
 	const imageData = new Images(title, imageURL);
-	imageData
-		.saveImage()
-		.then((image) => {
-			console.log('IMG Saved');
-			res.redirect('/admin/add-content');
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		const newImg = await imageData.saveImage();
+		console.log('IMG Saved');
+		console.log(newImg);
+		res.redirect('/admin/add-content');
+	} catch (error) {
+		console.log(error);
+	}
 };
 
-exports.getUsersPage = (req, res, next) => {
+exports.getUsersPage = async (req, res, next) => {
 	const newPW = req.flash('changePW');
-	Users.fetchAll()
-		.then((users) => {
-			res.render('admin/users-list', {
+	try {
+		const users = await Users.fetchAll();
+		res.render('admin/users-list', {
 				pageTitle: 'Users',
 				userList: users,
 				newPWmsg: newPW[0]
 			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+		
+	} catch (error) {
+		console.log(error);
+	}
 };
 
-exports.getUserPage = (req, res, next) => {
+exports.getUserPage = async (req, res, next) => {
 	const userId = req.params.userId;
-	Users.findById(userId)
-		.then((user) => {
-			//data o vybranem userovi
-			res.render('admin/user-edit', {
-				pageTitle: 'User Edit',
-				user: user,
-				err: null,
-				oldInput: {
-					password: '',
-					confirm: ''
-				}
-			});
+	try {
+		const singleUser = await Users.findById(userId);
+		res.render('admin/user-edit', {
+			pageTitle: 'User Edit',
+			user: singleUser,
+			err: null,
+			oldInput: {
+				password: '',
+				confirm: ''
+			}
 		})
-		.catch((err) => console.log(err));
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 /* post edit user - update v db */
-exports.postEditUser = (req, res, next) => {
+exports.postEditUser = async (req, res, next) => {
 	const ID = req.body.userId;
 	const newPassword = req.body.newpassword;
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		Users.findById(ID)
-			.then((user) => {
-				console.log(errors);
-				res.render('admin/user-edit', {
-					pageTitle: 'User Edit',
-					user: user,
-					err: errors.array()[0].msg,
-					oldInput: {
-						password: newPassword,
-						confirm: req.body.confirmpassword
-					}
-				});
-			})
-			.catch((err) => console.log(err));
+		try {
+			const user = await Users.findById(ID);
+			console.log(errors);
+			res.render('admin/user-edit', {
+				pageTitle: 'User Edit',
+				user: user,
+				err: errors.array()[0].msg,
+				oldInput: {
+					password: newPassword,
+					confirm: req.body.confirmpassword
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	Users.findById(ID)
-		.then((user) => {
-			//nalezený user, pro kterého provedu update udajů
-			return bcrypt
-				.hash(newPassword, 12)
-				.then((hash) => {
-					Users.editUserPassword(user, hash)
-						.then(() => {
-							console.log('edit user password OK');
-							req.flash('changePW', 'Your password was changed');
-							res.redirect(`/admin/users`);
-						})
-						.catch((err) => {
-							console.log(err);
-						});
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		const user = await Users.findById(ID);
+		const hash = await bcrypt.hash(newPassword, 12);
+		const updatePW = await Users.editUserPassword(user, hash);
+		console.log('edit user password OK');
+		console.log(updatePW);
+		req.flash('changePW', 'Your password was changed');
+		res.redirect(`/admin/users`);
+	} catch (err){
+		console.log(err);
+		console.log('new password set failed');
+	}
+		
 };
 
-exports.DeleteUser = (req, res, next) => {
+////DELETE async/await
+exports.DeleteUser = async (req, res, next) => {
 	const userId = req.params.userId;
-	Users.delete(userId)
-		.then(() => {
-			res.status(200).json({message: "User deleted success"});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		await Users.delete(userId);
+		res.status(200).json({message: "User deleted success"});
+	} catch (err) {
+		console.log(err);
+	}
+	
 };
 
 exports.getAddUserPage = (req, res, next) => {
@@ -307,7 +313,7 @@ exports.getAddUserPage = (req, res, next) => {
 	});
 };
 
-exports.postAddUser = (req, res, next) => {
+exports.postAddUser = async (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	const errors = validationResult(req);
@@ -327,15 +333,16 @@ exports.postAddUser = (req, res, next) => {
 		});
 	}
 
-	bcrypt.hash(password, 12).then((hashedPassword) => {
-		const newUser = new Users(email, hashedPassword);
-		newUser
-			.save()
-			.then(() => {
-				console.log('New user saved');
-				req.flash('savedUser', 'New user added!');
-				return res.redirect('/admin/users/add-user');
-			})
-			.catch((err) => console.log(err));
-	});
+	try {
+		const hash = await bcrypt.hash(password, 12);
+		const newUser = new Users(email, hash);
+		await newUser.save();
+		console.log('New user saved');
+		req.flash('savedUser', 'New user added!');
+		return res.redirect('/admin/users/add-user');
+
+	} catch (error) {
+		console.log(error);
+	}
+
 };
