@@ -9,61 +9,56 @@ module.exports = class User {
 		this.resetTokenExp;
 	}
 
-	static editUserPassword(user, newPassword) {
+	static async editUserPassword(user, newPassword) {
 		const db = getDb();
 		//Neprovádím kontrolu podle ID, protože kontrola proběhla již v admin controlleru, při hledání uživatele
-		return db
-			.collection('users')
-			.updateOne({ _id: new mongoDb.ObjectId(user._id) }, { $set: { password: newPassword } })
-			.then((result) => {
-				console.log('New password set');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			await db
+				.collection('users')
+				.updateOne({ _id: new mongoDb.ObjectId(user._id) }, { $set: { password: newPassword } });
+			console.log('New password set');
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static updatePassword(user, token, password) {
+	//update - z loginu reset pw
+	static async updatePassword(user, token, password) {
 		const db = getDb();
-		return db
-			.collection('users')
-			.updateOne(
-				{ resetToken: token, resetTokenExp: { $gt: Date.now() }, _id: new mongoDb.ObjectId(user._id) },
-				{ $set: { password: password, resetToken: undefined, resetTokenExp: undefined } }
-			)
-			.then((result) => {
-				console.log(result);
-				console.log('DB MOdel password updated');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+
+		try {
+			await db
+				.collection('users')
+				.updateOne(
+					{ resetToken: token, resetTokenExp: { $gt: Date.now() }, _id: new mongoDb.ObjectId(user._id) },
+					{ $set: { password: password, resetToken: undefined, resetTokenExp: undefined } }
+				);
+			console.log('DB MOdel password updated');
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static findToken(token) {
+	static async findToken(token) {
 		const db = getDb();
-		return db
-			.collection('users')
-			.findOne({ resetToken: token, resetTokenExp: { $gt: Date.now() } })
-			.then((user) => {
-				console.log('findtokenModel');
-				console.log(user);
-				return user;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			const user = await db
+				.collection('users')
+				.findOne({ resetToken: token, resetTokenExp: { $gt: Date.now() } });
+			console.log('token found');
+			return user;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static setReset(user, token) {
+	static async setReset(user, token) {
 		const db = getDb();
 		this.resetToken = token;
 		this.resetTokenExp = Date.now() + 3600000;
 
-		return db
-			.collection('users')
-			.updateOne(
-				{ email: user.email },
+		try {
+			await db.collection('users').updateOne({ email: user.email },
 				{
 					$set: {
 						resetToken: this.resetToken,
@@ -71,76 +66,63 @@ module.exports = class User {
 					}
 				}
 			)
-			.then((tokenSet) => {
-				console.log('reset token set!');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			console.log('reset token set!');
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static findByEmail(email) {
+	static async findByEmail(email) {
 		const db = getDb();
-		return db
-			.collection('users')
-			.findOne({ email: email })
-			.then((userFound) => {
-				console.log('User found');
-				return userFound;
-			})
-			.catch((err) => console.log(err));
+		try {
+			const userFound = await db.collection('users').findOne({ email: email });
+			console.log('User found');
+			return userFound;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	save() {
+	async save() {
+		const db = getDb();
 		//save použiju v add usser
-		const db = getDb();
-		return db
-			.collection('users')
-			.insertOne(this)
-			.then((result) => {
-				console.log(`User saved`);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			await db.collection('users').insertOne(this);
+			console.log(`User saved`);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static findById(id) {
+	static async findById(id) {
 		const db = getDb();
-		return db
-			.collection('users')
-			.find({ _id: mongoDb.ObjectId(id) })
-			.next()
-			.then((user) => {
-				console.log(`User found: looged in`);
-				return user;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			const user = await db.collection('users').findOne({ _id: mongoDb.ObjectId(id) });
+			console.log(`User found: logged in`);
+			return user;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static fetchAll() {
+	static async fetchAll() {
 		const db = getDb();
-		return db
-			.collection('users')
-			.find()
-			.toArray()
-			.then((users) => {
-				console.log(users);
-				return users;
-			})
-			.catch((err) => console.log(err));
+		try {
+			const users = await db.collection('users').find().toArray();
+			console.log('fetching users...');
+			return users;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	static delete(ID) {
+	static async delete(ID) {
 		const db = getDb();
-		return db
-			.collection('users')
-			.deleteOne({ _id: new mongoDb.ObjectId(ID) })
-			.then((user) => {
-				console.log('User deleted');
-			})
-			.catch((err) => console.log(err));
+		try {
+			await db.collection('users').deleteOne({ _id: new mongoDb.ObjectId(ID) });
+			console.log('User deleted');
+		} catch (error) {
+			console.log(error);
+		}
 	}
 };

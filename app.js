@@ -63,20 +63,20 @@ app.use(flash());   //musí být po initu session
 
 // když už session uživatele existuje tak, jen najdu session id uživatele a vezmu si pouze data o něm - použiju  req.user = user data ze session už mam... když req.session user id existuje, tak se do then parametru uloží data teto session a ty čistý data si uložím do ní a nasledně do req.user = user
 // tím že jde o session muddleware "obecený" tak je dostupný všude. Pokud req.session.user existuje našel jsem id, tak pro něho ukladsam data do req.user a ty pak používám v admin controlleru, např. pro isAuthenticated -> a tedy mohu vypsat obsah CMS
-app.use((req,res,next) => {
+app.use(async (req,res,next) => {
     if(!req.session.user) {
        return next();
     }
-    User.findById(req.session.user._id)
-        .then((user) => {
-            if(!user) {
-                next();
-            }
-            req.user = user;    //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+    try {
+        const user = await User.findById(req.session.user._id)
+        if(!user) {
             next();
-        }).catch((err) => {
-            throw new Error(err);
-        });
+        }
+        req.user = user;    //K dané session je přřazen user . nalezený user je uložen v session   //req.session.user je dostupnej všude kvuli session middlewareu v app.js
+        next();
+    } catch (error) {
+        throw new Error(error);
+    }
 });
 
 //Namísto opakování těchto parametrů v renderech, použiju locals - tím se používají tyto params ve všech renderech

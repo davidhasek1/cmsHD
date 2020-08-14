@@ -43,56 +43,47 @@ const Images = class {
 			console.log('fail to fetch img from db');
 		}
     }
-    
-    static visibilityIsTrue(ID) {
-        const db = getDb();
-        return db
-            .collection('images')
-            .updateOne({ _id: new mongodb.ObjectId(ID) }, { $set: { visibility: false } })
-            .then((result) => {
-                console.log('set to False');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+	
+	// ________
+    static async  visibilityIsTrue(ID) {
+		const db = getDb();
+		try {
+			await db.collection('images').updateOne({ _id: new mongodb.ObjectId(ID) }, { $set: { visibility: false } });
+			console.log('img visibility set to FALSE');
+		} catch (error) {
+			console.log('feil to set visibility');
+		}
     }
 
-	static visibilityIsFalse(ID) {
+	static async visibilityIsFalse(ID) {
 		const db = getDb();
-		return db
-			.collection('images')
-			.updateOne({ _id: new mongodb.ObjectId(ID)}, { $set: { visibility: true } })
-			.then((result) => {
-                console.log('set to true');
-            })
-			.catch((err) => {
-                console.log(err);
-            });
+		try {
+			await db.collection('images').updateOne({ _id: new mongodb.ObjectId(ID) }, { $set: { visibility: true } });
+			console.log('img visibility set to TRUE');
+		} catch (error) {
+			console.log('feil to set visibility');
+		}
 	}
 
-	static delete(ID, URL) {
+	static async delete(ID, URL) {
 		const db = getDb();
-		return db
-			.collection('images')
-			.deleteOne({ _id: mongodb.ObjectId(ID) })
-			.then((result) => {
-				ImgDeleteHelper(URL);
-				console.log('IMG deleted from DB');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		try {
+			await db.collection('images').deleteOne({ _id: mongodb.ObjectId(ID) });
+			ImgDeleteHelper(URL);
+			console.log('IMG deleted from DB');
+		} catch (error) {
+			console.log('fail to delete img');
+		}
 	}
 
-	static imgCount() {
+	static async imgCount() {
 		const db = getDb();
-		return db.collection('images').countDocuments({ visibility: true })
-		.then((count) => {
-			console.log(count);
+		try {
+			const count = await db.collection('images').countDocuments({ visibility: true });
 			return count;
-		}).catch((err) => {
+		} catch (error) {
 			console.log('img count failed');
-		});
+		}
 	}
 };
 

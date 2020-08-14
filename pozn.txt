@@ -4,12 +4,13 @@ počeštit aplikaci
 
 udělat návody
 
-
 async await
 
 controleres: admin ctrl, auth, controller, database
+models: form, images, users
+app.js async done¨
 
-models: form, 
+!!!!!!!!!VYŘEŠIT CLIENT JS ASYNCAWAIT!!!!!!!!!!
 ____________________
 
     NEMAŠ ZADANÉ PŘIHLAČOVACÍ UDAJE DO MAILU!!!
