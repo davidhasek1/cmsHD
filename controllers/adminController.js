@@ -4,7 +4,7 @@ const Users = require('../models/users');
 const Images = require('../models/images');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
-const { all } = require('../routes/adminRoutes');
+
 
 exports.getCMSPage = async (req, res, next) => {
 	try {

@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
-const MONGO_URI = 'mongodb+srv://davidhasek:davidhasek@cluster0-fw5d7.mongodb.net/messages?retryWrites=true&w=majority';
+const MONGO_URI = 'mongodb+srv://davidhasek:<PW>@cluster0-fw5d7.mongodb.net/messages?retryWrites=true&w=majority';
 
 let _db;
 
